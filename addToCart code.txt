@@ -1,0 +1,21 @@
+//add to cart functionality using event delegation
+  bestSellersContainer.addEventListener("click", async (event) => {
+    if (event.target.classList.contains("add-to-cart-button")) {
+      const button = event.target;
+      const productId = button.dataset.productId;
+      const snapshot = await getProducts();
+      snapshot.forEach((doc) => {
+        if (doc.id === productId) {
+          const product = doc.data();
+          cart.push({
+            id: doc.id,
+            name: product.name,
+            price: product.price,
+            imageUrl: product.image,
+            quantity: 1
+          });
+          alert(`${product.name} added to cart!`);
+        }
+      });
+    }
+  });
