@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-import { getFirestore, setDoc, doc, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+import { getFirestore, setDoc, doc, collection, getDocs, query, where, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
   
   // Your web app's Firebase configuration
@@ -36,6 +36,7 @@ import { getFirestore, setDoc, doc, collection, getDocs, query, where } from "ht
   window.db = db;
   window.onAuthStateChanged = onAuthStateChanged;
   window.signOut = signOut;
+  window.getDoc = getDoc;
   
 
   //Save user cart to Firestore

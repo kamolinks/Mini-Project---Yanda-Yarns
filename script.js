@@ -2,27 +2,18 @@
 // This script file contains the logic of the web app
 import { getProducts } from "./firebaseauth.js";
 import { saveUserCart } from "./firebaseauth.js";
-
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
   
   let mode = 'login'; // Default mode is login
   const modal = document.getElementById("modal");
   const title = document.getElementById("modalTitle");
-  const accountLink = document.getElementById("userIcon");
+  const accountLink = document.querySelector(".account-link");
   const button = document.getElementById("authButton");
   const toggleText = document.getElementById("toggleText");
   const closeBtn = document.getElementById("closeBtn");
-  // Load cart from localStorage if available
   let cart = [];
-  const storedCart = localStorage.getItem('cart');
-  if (storedCart) {
-    try {
-      cart = JSON.parse(storedCart);
-    } catch (e) {
-      cart = [];
-    }
-  }
   let products = [];
 
   // Open modal when account link or icon is clicked
@@ -85,8 +76,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const authButton = document.getElementById("authButton");
   const authEmail = document.getElementById("authEmail");
   const authPassword = document.getElementById("authPassword");
-  const authName = document.getElementById("authName");
-  const authSurname = document.getElementById("authSurname");
 
 
   if (authButton) {
@@ -128,8 +117,10 @@ document.addEventListener('DOMContentLoaded', function() {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       showLoggedInView(user);
+      loadUserCart(); // Load cart from Firestore and update cart count
     } else {
       showLoggedOutView();
+      cartCount.textContent = '0'; // Reset cart count when logged out
     }
   });
   
@@ -150,10 +141,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (logoutBtn) {
       logoutBtn.style.display = 'none';
     }
-    // Reset cart and cart count on logout
-    cart = [];
-    localStorage.removeItem('cart');
-    updateCartItems();
   }
 
   // Add logout button click handler
@@ -164,6 +151,9 @@ document.addEventListener('DOMContentLoaded', function() {
         await signOut(auth);
         alert('Signed out successfully!');
         showLoggedOutView();
+        // Clear cart and update cart count to 0 after logout
+        cart = [];
+        updateCartItems();
       } catch (error) {
         alert('Error signing out: ' + error.message);
       }
@@ -192,44 +182,44 @@ document.addEventListener('DOMContentLoaded', function() {
   
 
 
-  const bestSellersContainer = document.getElementById("best-sellers-container");
-  async function loadProducts() {
-    try {
-      const snapshot = await getProducts();
-      console.log('Fetched products snapshot:', snapshot);
-      bestSellersContainer.innerHTML = "";
-      products = [];
-      snapshot.forEach((doc) => {
-        const product = doc.data();
-        products.push({ ...product, id: doc.id });
-        console.log('Product:', product);
-        bestSellersContainer.innerHTML += `
-          <article class="group product-card">
-            <div class="product-media">
-              <img loading="lazy" src="${product.image || product.imageUrl || ''}" alt="${product.name}" class="product-image"/>
-              <button type="button" aria-label="Quick view" class="quick-view-button">
-                <img src="https://api.iconify.design/lucide-eye.svg?color=%23e5e7eb" alt="Eye Icon" class="quick-view-icon"/>
-              </button>
+const bestSellersContainer = document.getElementById("best-sellers-container");
+async function loadProducts() {
+  try {
+    const snapshot = await getProducts();
+    console.log('Fetched products snapshot:', snapshot);
+    bestSellersContainer.innerHTML = "";
+    products = [];
+    snapshot.forEach((doc) => {
+      const product = doc.data();
+      products.push({ ...product, id: doc.id });
+      console.log('Product:', product);
+      bestSellersContainer.innerHTML += `
+        <article class="group product-card">
+          <div class="product-media">
+            <img loading="lazy" src="${product.image || product.imageUrl || ''}" alt="${product.name}" class="product-image"/>
+            <button type="button" aria-label="Quick view" class="quick-view-button">
+              <img src="https://api.iconify.design/lucide-eye.svg?color=%23e5e7eb" alt="Eye Icon" class="quick-view-icon"/>
+            </button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">${product.name}</h3>
+            <div class="product-price-row">
+              <span class="product-price">R${product.price}</span>
+              <button type="button" class="add-to-cart-button" data-product-id="${doc.id}">Add to Cart</button>
             </div>
-            <div class="product-info">
-              <h3 class="product-name">${product.name}</h3>
-              <div class="product-price-row">
-                <span class="product-price">R${product.price}</span>
-                <button type="button" class="add-to-cart-button" data-product-id="${doc.id}">Add to Cart</button>
-              </div>
-            </div>
-          </article>
-        `;
-      });
-      if (snapshot.empty) {
-        console.warn('No top-seller products found.');
-        bestSellersContainer.innerHTML = '<p>No top-seller products found.</p>';
-      }
-    } catch (error) {
-      console.error("Error loading products:", error);
+          </div>
+        </article>
+      `;
+    });
+    if (snapshot.empty) {
+      console.warn('No top-seller products found.');
+      bestSellersContainer.innerHTML = '<p>No top-seller products found.</p>';
     }
+  } catch (error) {
+    console.error("Error loading products:", error);
   }
-  loadProducts();
+}
+loadProducts();
 
   //add to cart functionality using event delegation
   bestSellersContainer.addEventListener("click", async (event) => {
@@ -255,8 +245,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!cartCount) return;
     const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
     cartCount.textContent = totalItems;
-    // Save cart to localStorage whenever it changes
-    localStorage.setItem('cart', JSON.stringify(cart));
   }
 
   // Initialize cart count on page load
@@ -266,10 +254,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function saveCartToFirestore() {
     const user = auth.currentUser;
 
-    if(!user) {
-      console.log("No user logged in");
-      return;
-    } // User must be logged in to save cart
+    if(!user) return; // User must be logged in to save cart
 
     saveUserCart(user.uid, cart);
   }
