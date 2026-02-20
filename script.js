@@ -3,8 +3,11 @@
 import { getProducts } from "./firebaseauth.js";
 import { saveUserCart } from "./firebaseauth.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+console.log("Script loaded");
+
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+  console.log("DOM LOADED");
   
   let mode = 'login'; // Default mode is login
   const modal = document.getElementById("modal");
@@ -170,6 +173,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //Show user cartCount when logged in
     async function loadUserCart() {
+      if (!auth.currentUser) {
+        console.warn("No user logged in, cannot load cart.");
+        return;
+      }
       const docRef = doc(db, "users", auth.currentUser.uid);
       const docSnap = await getDoc(docRef);
 
@@ -259,6 +266,119 @@ loadProducts();
     saveUserCart(user.uid, cart);
   }
 
+  //open cart when cart icon is clicked
+
+  const cartIcon = document.getElementById("cartIcon");
+  const cartModal = document.getElementById("cartModal");
+  const closeCartBtn = document.getElementById("closeCartBtn");
+  console.log(cartIcon);
+  console.log(cartModal);
+  cartIcon.addEventListener("click", async () => {
+    cartModal.classList.remove("hidden");
+    await loadCart();
+  });
+
+  closeCartBtn.addEventListener("click", () => {
+    cartModal.classList.add("hidden");
+  });
+
+  // Function to load cart items into the cart modal
+  async function loadCart() {
+    const cartItems = document.getElementById("cartItems");
+    const totalPrice = document.getElementById("cartTotal");
+    cartItems.innerHTML = "";
+    let total = 0;
+
+    // Read cart from user document (not subcollection)
+    const docRef = doc(db, "users", auth.currentUser.uid);
+    const docSnap = await getDoc(docRef);
+    let userCart = [];
+    if (docSnap.exists()) {
+      userCart = docSnap.data().cart || [];
+    }
+
+    userCart.forEach((item) => {
+      total += item.product.price * item.quantity;
+      cartItems.innerHTML += `
+        <div class="cart-item" data-product-id="${item.product.id}">
+          <img src="${item.product.image || item.product.imageUrl || ''}" alt="${item.product.name}" class="cart-item-image"/>
+          <div class="cart-item-info">
+            <h4>${item.product.name}</h4>
+            <p>Price: R${item.product.price}</p>
+            <p>Quantity: <span class="cart-qty">${item.quantity}</span></p>
+            <button class="increase-qty">+</button>
+            <button class="decrease-qty">-</button>
+          </div>
+        </div>
+      `;
+    });
+
+    totalPrice.textContent = total.toFixed(2);
+  }
+
+  // Event delegation for cart item quantity buttons
+  cartItems.addEventListener("click", async (event) => {
+    const cartItemDiv = event.target.closest(".cart-item");
+    if (!cartItemDiv) return;
+    const productId = cartItemDiv.getAttribute("data-product-id");
+    if (!productId) return;
+
+    // Get latest cart from Firestore
+    const docRef = doc(db, "users", auth.currentUser.uid);
+    const docSnap = await getDoc(docRef);
+    let userCart = docSnap.exists() ? docSnap.data().cart || [] : [];
+
+    // Find item index
+    const itemIndex = userCart.findIndex(item => item.product.id === productId);
+    if (itemIndex === -1) return;
+
+    if (event.target.classList.contains("increase-qty")) {
+      userCart[itemIndex].quantity += 1;
+    } else if (event.target.classList.contains("decrease-qty")) {
+      if (userCart[itemIndex].quantity > 1) {
+        userCart[itemIndex].quantity -= 1;
+      } else {
+        userCart.splice(itemIndex, 1);
+      }
+    } else {
+      return;
+    }
+
+    // Save updated cart
+    await saveUserCart(auth.currentUser.uid, userCart);
+    await loadCart();
+    updateCartItems();
+  });
+
+  //increase quantity of a cart item
+  async function increaseQty(productId) {
+    const docRef = doc(db, "users", auth.currentUser.uid, productId);
+    const docSnap = await getDoc(docRef);
+    const data = docSnap.data();
+
+    await updateDoc(docRef, {
+      quantity: data.quantity + 1
+    });
+    await loadCart();
+  }
+
+  //decrease quantity of a cart item
+  async function decreaseQty(productId) {
+    const docRef = doc(db, "users", auth.currentUser.uid, productId);
+    const docSnap = await getDoc(docRef);
+    const data = docSnap.data();
+
+    if (data.quantity > 1) {
+      await updateDoc(docRef, {
+        quantity: data.quantity - 1
+      });
+    } else {
+      await deleteDoc(docRef);
+    }
+    await loadCart();
+  }
 
 });
+
+
 

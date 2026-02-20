@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="./style.css">
   <script type="module" src="firebaseauth.js"></script>
-  <script type="module" src="./script.js"></script>
+ 
   </head>
   <body class="gjs-t-body body-wrapper">
     <header class="header">
@@ -23,7 +23,7 @@
           <a href="#" class="account-link"><img src="https://api.iconify.design/lucide-user.svg?color=%23e5e7eb" alt="User Icon" class="account-icon" id="userIcon"/>
             <button id="logoutBtn">Sign Out</button>
             </div><span class="account-text">Account</span></a>
-            <button type="button" class="cart-button"><img src="https://api.iconify.design/lucide-shopping-bag.svg?color=%23e5e7eb" alt="Cart Icon" class="cart-icon"/><span class="cart-text">Cart</span><span class="cart-badge" id="cartCount">0</span></button><button type="button" aria-label="Open menu" id="menuToggle" class="mobile-menu-button"><img src="https://api.iconify.design/lucide-menu.svg?color=%23e5e7eb" alt="Menu Icon" class="menu-icon"/></button></div></div><div id="mobileMenu" class="mobile-menu-panel"><div class="mobile-menu-container"><a href="#" class="gjs-t-link mobile-nav-link">Men</a><a href="#" class="gjs-t-link mobile-nav-link">Women</a><a href="#" class="gjs-t-link mobile-nav-link">Accessories</a><a href="#" class="gjs-t-link mobile-nav-link">Sale</a></div></div></header>
+            <button type="button" class="cart-button" id="cartIcon"><img src="https://api.iconify.design/lucide-shopping-bag.svg?color=%23e5e7eb" alt="Cart Icon" class="cart-icon"/><span class="cart-text">Cart</span><span class="cart-badge" id="cartCount">0</span></button><button type="button" aria-label="Open menu" id="menuToggle" class="mobile-menu-button"><img src="https://api.iconify.design/lucide-menu.svg?color=%23e5e7eb" alt="Menu Icon" class="menu-icon"/></button></div></div><div id="mobileMenu" class="mobile-menu-panel"><div class="mobile-menu-container"><a href="#" class="gjs-t-link mobile-nav-link">Men</a><a href="#" class="gjs-t-link mobile-nav-link">Women</a><a href="#" class="gjs-t-link mobile-nav-link">Accessories</a><a href="#" class="gjs-t-link mobile-nav-link">Sale</a></div></div></header>
             <section class="hero-slider"><div class="hero-container"><div class="hero-slider-frame"><div id="slidesWrapper" class="hero-slides-wrapper"><div class="hero-slide"><img src="https://app.grapesjs.com/api/assets/random-image?query=%22luxury%20fashion%20editorial%22&amp;w=1600&amp;h=700" alt="Featured Couture Collection" class="hero-slide-image"/><div class="hero-slide-overlay"></div><div class="hero-slide-content"><h1 class="gjs-t-h1">Couture Winter 2026</h1><p class="hero-subtitle">Handcrafted silhouettes in deep jewel tones with heritage fabrics and modern lines.</p><div class="hero-ctas"><a href="#" class="gjs-t-button primary-cta">
 Explore Collection
                   <img src="https://api.iconify.design/lucide-arrow-right.svg?color=%230b0b0b" alt="Arrow Right Icon" class="cta-icon"/></a><a href="#" class="secondary-cta">
@@ -148,7 +148,7 @@ Explore Collection
 </script>
 
 
-<div id="modal" class="modal">
+<div id="modal" class="modal hidden">
   <div class="modal-content">
     <span id="closeBtn">&times;</span>
     <h2 id="modalTitle">Login</h2>
@@ -173,5 +173,7 @@ Explore Collection
   </div>
 </div>
 
+
+ <script type="module" src="./script.js"></script>
 </body>
 </html>
