@@ -1,7 +1,8 @@
-// Import the functions you need from the SDKs you need
+import { getFirestore, setDoc, doc, collection, getDocs, query, where, getDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-import { getFirestore, setDoc, doc, collection, getDocs, query, where, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+import { updateDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+import { addDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
   
   // Your web app's Firebase configuration
@@ -22,7 +23,13 @@ import { getFirestore, setDoc, doc, collection, getDocs, query, where, getDoc, u
 
   //function to get products from db
   export async function getProducts() {
-    const q = query(collection(db, "Products"), where("top-seller", "==", true));
+    const q = query(collection(db, "Products"));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot;
+  }
+
+  export async function getOnSaleProducts() {
+    const q = query(collection(db, "Products"), where("on-sale", "==", true));
     const querySnapshot = await getDocs(q);
     return querySnapshot;
   }
@@ -37,7 +44,9 @@ import { getFirestore, setDoc, doc, collection, getDocs, query, where, getDoc, u
   window.onAuthStateChanged = onAuthStateChanged;
   window.signOut = signOut;
   window.getDoc = getDoc;
-  
+  window.addDoc = addDoc;
+  window.collection = collection;
+  window.getOnSaleProducts = getOnSaleProducts;
 
   //Save user cart to Firestore
   export async function saveUserCart(userId, cart) {

@@ -1,14 +1,12 @@
 // Kamogelo Tsele  (TSLKAM002)
 // This script file contains the logic of the web app
-import { getProducts } from "./firebaseauth.js";
+import { getProducts, getOnSaleProducts } from "./firebaseauth.js";
 import { saveUserCart } from "./firebaseauth.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-console.log("Script loaded");
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-  console.log("DOM LOADED");
-  
+   
   let mode = 'login'; // Default mode is login
   const modal = document.getElementById("modal");
   const title = document.getElementById("modalTitle");
@@ -18,6 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const closeBtn = document.getElementById("closeBtn");
   let cart = [];
   let products = [];
+  
+  
 
   // Open modal when account link or icon is clicked
   if (accountLink) {
@@ -80,6 +80,15 @@ document.addEventListener('DOMContentLoaded', function() {
   const authEmail = document.getElementById("authEmail");
   const authPassword = document.getElementById("authPassword");
 
+  //check if user is an admin
+  async function checkAdmin(user) {
+  const userRef = doc(db, "users", user.uid);
+  const userSnap = await getDoc(userRef);
+
+  if (userSnap.data().role === "admin") {
+    window.location.href = "admin.html";
+  }
+}
 
   if (authButton) {
     authButton.addEventListener('click', async () => {
@@ -96,6 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (mode === 'login') {
           const userCredential = await window.signInWithEmailAndPassword(window.auth, email, password);
           alert('Login successful!');
+          checkAdmin(userCredential.user);
         } else {
           const userCredential = await window.createUserWithEmailAndPassword(window.auth, email, password);
           await window.setDoc(window.doc(window.db, "users", userCredential.user.uid), {
@@ -187,21 +197,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
   
-
-
-const bestSellersContainer = document.getElementById("best-sellers-container");
-async function loadProducts() {
-  try {
-    const snapshot = await getProducts();
-    console.log('Fetched products snapshot:', snapshot);
-    bestSellersContainer.innerHTML = "";
-    products = [];
-    snapshot.forEach((doc) => {
-      const product = doc.data();
-      products.push({ ...product, id: doc.id });
-      console.log('Product:', product);
-      bestSellersContainer.innerHTML += `
-        <article class="group product-card">
+    //function to create product cards and display products on the page
+    function createProductCard(product, id) {
+      return`
+      <article class="group product-card">
           <div class="product-media">
             <img loading="lazy" src="${product.image || product.imageUrl || ''}" alt="${product.name}" class="product-image"/>
             <button type="button" aria-label="Quick view" class="quick-view-button">
@@ -212,39 +211,74 @@ async function loadProducts() {
             <h3 class="product-name">${product.name}</h3>
             <div class="product-price-row">
               <span class="product-price">R${product.price}</span>
-              <button type="button" class="add-to-cart-button" data-product-id="${doc.id}">Add to Cart</button>
+              <button type="button" class="wishlist-button" aria-label="Add to wishlist">
+                <img src="images/wishlist icon.svg" alt="Wishlist Icon" class="heart-icon" />
+              </button>
+              <button type="button" class="add-to-cart-button" data-product-id="${id}">Add to Cart</button>
             </div>
           </div>
         </article>
-      `;
-    });
-    if (snapshot.empty) {
-      console.warn('No top-seller products found.');
-      bestSellersContainer.innerHTML = '<p>No top-seller products found.</p>';
+      `
     }
-  } catch (error) {
-    console.error("Error loading products:", error);
-  }
-}
-loadProducts();
 
-  //add to cart functionality using event delegation
-  bestSellersContainer.addEventListener("click", async (event) => {
-    if (event.target.classList.contains("add-to-cart-button")) {
-      const productId = event.target.dataset.productId;
-      const selectedProduct = products.find(p => p.id === productId);
-      const exisistingItem = cart.find(item => item.product.id === productId);
+    //a function to load products from firestore and display them on the page
 
-      if (exisistingItem) {
-        exisistingItem.quantity += 1;
-      } else {
-        cart.push({ product: selectedProduct, quantity: 1 });
+    async function loadProducts(container, filterFn=null) {
+      try{
+        const snapshot = await getProducts();
+        container.innerHTML = "";
+
+        if (snapshot.empty) {
+          container.innerHTML = "<p>No products found.</p>";
+          return;
+        }
+
+        snapshot.forEach((doc) => {
+          const product = { ...doc.data(), id: doc.id };
+          // Add to global products array if not already present
+          if (!products.some(p => p.id === product.id)) {
+            products.push(product);
+          }
+          // Apply filter if provided
+          if (!filterFn || filterFn(product)) {
+            container.innerHTML += createProductCard(product, doc.id);
+          }
+        });
+
+      } catch (error) {
+        console.error("Error loading products:", error);
       }
-
-      updateCartItems();
-      saveCartToFirestore();
     }
+
+
+  loadProducts(document.querySelector("#best-sellers-container"), 
+  (product) => product["top-seller"] === true);
+
+  loadProducts(document.querySelector(".on-sale-container .product-grid"), 
+  (product) => product["on-sale"] === true);
+
+  //add to cart button functionality
+  document.addEventListener("click", async (event) => {
+    const button = event.target.closest(".add-to-cart-button");
+    if (!button) return;
+    const productId = button.dataset.productId;
+    const selectedProduct = products.find(p => p.id === productId);
+    if (!selectedProduct) {
+      alert('Product not found!');
+      return;
+    }
+    const existingItem = cart.find(item => item.product.id === productId);
+
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({ product: selectedProduct, quantity: 1 });
+    }
+
+    updateCartItems();
+    saveCartToFirestore();
   });
+
 
   // Function to update cart count badge in the UI
   function updateCartItems() {
@@ -306,8 +340,10 @@ loadProducts();
             <h4>${item.product.name}</h4>
             <p>Price: R${item.product.price}</p>
             <p>Quantity: <span class="cart-qty">${item.quantity}</span></p>
-            <button class="increase-qty">+</button>
-            <button class="decrease-qty">-</button>
+            <div class="cart-item-qty-controls">
+              <button class="increase-qty">+</button>
+              <button class="decrease-qty">-</button>
+            </div>
           </div>
         </div>
       `;
@@ -347,6 +383,8 @@ loadProducts();
     // Save updated cart
     await saveUserCart(auth.currentUser.uid, userCart);
     await loadCart();
+    // Update local cart and badge
+    cart = userCart;
     updateCartItems();
   });
 
@@ -378,6 +416,44 @@ loadProducts();
     await loadCart();
   }
 
+  //goto checkout button
+  const goToCheckoutBtn = document.getElementById("goToCheckout");
+  if (goToCheckoutBtn) {
+    goToCheckoutBtn.addEventListener("click", async () => {
+      cartModal.classList.add("hidden");
+      window.location.href = "checkout.html";
+    });
+  }
+
+  const checkoutButton = document.getElementById("checkoutButton");
+  if (checkoutButton) {
+    checkoutButton.addEventListener("click", async () => {
+      // Get cart from user document
+      const docRef = doc(db, "users", auth.currentUser.uid);
+      const docSnap = await getDoc(docRef);
+      let userCart = docSnap.exists() ? docSnap.data().cart || [] : [];
+
+      if (userCart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+
+      // Save order to "orders" collection using window.addDoc and window.collection
+      await window.addDoc(window.collection(window.db, "orders"), {
+        userId: auth.currentUser.uid,
+        items: userCart,
+        total: userCart.reduce((total, item) => total + item.product.price * item.quantity, 0),
+        createdAt: new Date()
+      });
+
+      // Clear cart array in user document
+      await saveUserCart(auth.currentUser.uid, []);
+      cart = [];
+      alert("Order placed successfully!");
+      await loadCart();
+      updateCartItems();
+    });
+  }
 });
 
 

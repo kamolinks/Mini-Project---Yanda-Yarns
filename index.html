@@ -1,179 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>MD Elegance - Own your moment</title>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<head>
+  <title>Yanda Yarns - Wool you be mine</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="index,follow">
   <meta name="generator" content="GrapesJS Studio">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
   <script type="module" src="firebaseauth.js"></script>
- 
-  </head>
-  <body class="gjs-t-body body-wrapper">
-    <header class="header">
+
+</head>
+
+<body class="gjs-t-body body-wrapper">
+  <header class="header">
     <div class="header-container"><a href="index.html" class="group header-logo-link">
-      <img src="https://app.grapesjs.com/api/assets/random-image?query=%22luxury%20monogram%22&amp;w=40&amp;h=40" alt="Maison Élégance Logo" class="header-logo-image"/>
-      <span class="group-hover:text-[color:var(--gjs-t-color-accent)] header-logo-text">MD Elegance</span></a><nav class="header-navigation">
-        <a href="#" class="gjs-t-link nav-link">Men</a><a href="women.html" class="gjs-t-link nav-link">Women</a><a href="#" class="gjs-t-link nav-link">Photographers</a><a href="#" class="gjs-t-link nav-link">Cars</a></nav>
-        <div class="header-actions"><div class="search-wrapper"><input type="text" placeholder="Search luxury designs" aria-label="Search" class="search-input"/><a href="#">
-          <img src="https://api.iconify.design/lucide-search.svg?color=%23e5e7eb" alt="Search Icon" class="search-icon"/></div>
-          <span id="userGreeting"></span>
-          <a href="#" class="account-link"><img src="https://api.iconify.design/lucide-user.svg?color=%23e5e7eb" alt="User Icon" class="account-icon" id="userIcon"/>
-            <button id="logoutBtn">Sign Out</button>
-            </div><span class="account-text">Account</span></a>
-            <button type="button" class="cart-button" id="cartIcon"><img src="https://api.iconify.design/lucide-shopping-bag.svg?color=%23e5e7eb" alt="Cart Icon" class="cart-icon"/><span class="cart-text">Cart</span><span class="cart-badge" id="cartCount">0</span></button><button type="button" aria-label="Open menu" id="menuToggle" class="mobile-menu-button"><img src="https://api.iconify.design/lucide-menu.svg?color=%23e5e7eb" alt="Menu Icon" class="menu-icon"/></button></div></div><div id="mobileMenu" class="mobile-menu-panel"><div class="mobile-menu-container"><a href="#" class="gjs-t-link mobile-nav-link">Men</a><a href="#" class="gjs-t-link mobile-nav-link">Women</a><a href="#" class="gjs-t-link mobile-nav-link">Accessories</a><a href="#" class="gjs-t-link mobile-nav-link">Sale</a></div></div></header>
-            <section class="hero-slider"><div class="hero-container"><div class="hero-slider-frame"><div id="slidesWrapper" class="hero-slides-wrapper"><div class="hero-slide"><img src="https://app.grapesjs.com/api/assets/random-image?query=%22luxury%20fashion%20editorial%22&amp;w=1600&amp;h=700" alt="Featured Couture Collection" class="hero-slide-image"/><div class="hero-slide-overlay"></div><div class="hero-slide-content"><h1 class="gjs-t-h1">Couture Winter 2026</h1><p class="hero-subtitle">Handcrafted silhouettes in deep jewel tones with heritage fabrics and modern lines.</p><div class="hero-ctas"><a href="#" class="gjs-t-button primary-cta">
-Explore Collection
-                  <img src="https://api.iconify.design/lucide-arrow-right.svg?color=%230b0b0b" alt="Arrow Right Icon" class="cta-icon"/></a><a href="#" class="secondary-cta">
+        <img src="images/logo.jpeg" alt="Yanda Yarns Logo" class="header-logo-image" />
+        <span class="group-hover:text-[color:var(--gjs-t-color-accent)] header-logo-text">Yanda Yarns</span></a>
+      
+      <div class="header-actions">
+        <div class="search-wrapper"><input type="text" placeholder="Search luxury designs" aria-label="Search"
+            class="search-input" /><a href="#">
+            <img src="https://api.iconify.design/lucide-search.svg?color=%23e5e7eb" alt="Search Icon"
+              class="search-icon" /></div>
+        <span id="userGreeting"></span>
+        <a href="#" class="account-link"><img src="images/user icon.svg"
+            alt="User Icon" class="account-icon" id="userIcon" />
+          <button id="logoutBtn">Sign Out</button>
+      </div><span class="account-text">Account</span></a>
+      <button type="button" class="wishlist-button" id="wishlistIcon"><img
+          src="images/wishlist icon.svg" alt="Wishlist Icon"
+          class="wishlist-icon" /><span class="cart-text">
+      <button type="button" class="cart-button" id="cartIcon"><img
+          src="images/cart icon.svg" alt="Cart Icon"
+          class="cart-icon" /><span class="cart-text">Cart</span><span class="cart-badge"
+          id="cartCount">0</span></button><button type="button" aria-label="Open menu" id="menuToggle"
+        class="mobile-menu-button"><img src="https://api.iconify.design/lucide-menu.svg?color=%23e5e7eb" alt="Menu Icon"
+          class="menu-icon" /></button>
+    </div>
+    <div class="nav-container">
+      <nav class="header-navigation">
+          <a href="#" class="gjs-t-link nav-link">Home</a><a href="women.html" class="gjs-t-link nav-link">Shop</a><a
+            href="#" class="gjs-t-link nav-link">Request</a><a href="#" class="gjs-t-link nav-link">About Us</a>
+        </nav>
+    </div>
+    </div>
+    <div id="mobileMenu" class="mobile-menu-panel">
+      <div class="mobile-menu-container"><a href="#" class="gjs-t-link mobile-nav-link">Men</a><a href="#"
+          class="gjs-t-link mobile-nav-link">Women</a><a href="#" class="gjs-t-link mobile-nav-link">Accessories</a><a
+          href="#" class="gjs-t-link mobile-nav-link">Sale</a></div>
+    </div>
+  </header>
+  
+  <section class="hero-slider">
+    <div class="hero-container">
+      <div class="hero-slider-frame">
+        <div id="slidesWrapper" class="hero-slides-wrapper">
+          <div class="hero-slide"><img
+              src="images/landingPage3.jpg"
+              alt="Featured Couture Collection" class="hero-slide-image" />
+            <div class="hero-slide-overlay"></div>
+            <div class="hero-slide-content">
+              <h1 class="gjs-t-h1">And random charms too</h1>
+              <p class="hero-subtitle">Just let us know what you need. We make it for you, just as you want.</p>
+              <div class="hero-ctas"><a href="#" class="gjs-t-button primary-cta">
+                  Explore Collection
+                  </a><a href="#" class="secondary-cta">
                   View Lookbook
-                </a></div></div></div><div class="hero-slide"><img src="https://app.grapesjs.com/api/assets/random-image?query=%22luxury%20runway%22&amp;w=1600&amp;h=700" alt="Runway Statement Pieces" class="hero-slide-image"/><div class="hero-slide-overlay"></div><div class="hero-slide-content"><h2 class="gjs-t-h2">Runway Icons</h2><p class="hero-subtitle">Limited-edition designs crafted for impact and longevity.</p><div class="hero-ctas"><a href="#" class="secondary-cta">
+                </a></div>
+            </div>
+          </div>
+          <div class="hero-slide"><img
+              src="images/landingPage1.jpg"
+              alt="Crochet" class="hero-slide-image" />
+            <div class="hero-slide-overlay"></div>
+            <div class="hero-slide-content">
+              <h1 class="gjs-t-h1">Yanda Yarns</h1>
+              <p class="hero-subtitle">Welcome to THE crochet studio, where every piece is handcrafted with care and creativity. 
+                We specialize in beautifully made, high-quality crochet items that blend style and individuality.</p>
+              <div class="hero-ctas"><a href="#" class="secondary-cta">
                   Discover More
-                </a></div></div></div><div class="hero-slide"><img src="https://app.grapesjs.com/api/assets/random-image?query=%22luxury%20atelier%22&amp;w=1600&amp;h=700" alt="Atelier Craftsmanship" class="hero-slide-image"/><div class="hero-slide-overlay"></div><div class="hero-slide-content"><h2 class="gjs-t-h2">Atelier Craft</h2><p class="hero-subtitle">Meticulous tailoring meets timeless design codes.</p><div class="hero-ctas"><a href="#" class="gjs-t-button primary-cta">
+                </a></div>
+            </div>
+          </div>
+          <div class="hero-slide"><img
+              src="images/landingPage2.jpg"
+              alt="Not just knitwear" class="hero-slide-image" />
+            <div class="hero-slide-overlay"></div>
+            <div class="hero-slide-content">
+              <h2 class="gjs-t-h2">Fashionably Fun</h2>
+              <p class="hero-subtitle">We make the in-things. Don't fall behind</p>
+              <div class="hero-ctas"><a href="#" class="gjs-t-button primary-cta">
                   Learn More
                 </a><a href="#" class="secondary-cta">
                   Our Process
-                </a></div></div></div></div><div class="hero-controls"><button type="button" aria-label="Previous slide" id="prevSlide" class="hero-prev-button"><img src="https://api.iconify.design/lucide-chevron-left.svg?color=%23e5e7eb" alt="Prev Icon" class="prev-icon"/></button><button type="button" aria-label="Next slide" id="nextSlide" class="hero-next-button"><img src="https://api.iconify.design/lucide-chevron-right.svg?color=%23e5e7eb" alt="Next Icon" class="next-icon"/></button></div></div></div></section>
-                <section class="best-sellers-section">
-                  <div class="product-grid" id="best-sellers-container">
-                  </div>
-                </section>
-                <section class="catalog-filters-and-grid"><div class="catalog-container"><div class="filter-bar"><div class="filter-chips"><button type="button" class="filter-chip">All</button><button type="button" class="filter-chip">Men</button><button type="button" class="filter-chip">Women</button><button type="button" class="filter-chip">Accessories</button><button type="button" class="filter-chip">Sale</button></div><div class="sort-controls"><label for="sortSelect" class="sort-label">Sort by</label><select type="text" id="sortSelect" class="sort-select"><option>Featured</option><option>Price: Low to High</option><option>Price: High to Low</option><option>Newest</option></select></div></div><div class="product-grid"><article class="group product-card"><div class="product-media"><img loading="lazy" src="https://app.grapesjs.com/api/assets/random-image?query=%22luxury%20blazer%22&amp;w=600&amp;h=700" alt="Velvet Peak Lapel Blazer" class="product-image"/><button type="button" aria-label="Quick view" data-quick-view="product-5" class="quick-view-button"><img src="https://api.iconify.design/lucide-eye.svg?color=%23e5e7eb" alt="Eye Icon" class="quick-view-icon"/></button></div><div class="product-info"><h3 class="product-name">Velvet Peak Lapel Blazer</h3><div class="product-price-row"><span class="product-price">$1,280</span><button type="button" class="add-to-cart-button">Add to Cart</button></div></div></article><article class="group product-card"><div class="product-media"><img loading="lazy" src="https://app.grapesjs.com/api/assets/random-image?query=%22luxury%20coat%20man%22&amp;w=600&amp;h=700" alt="Cashmere Overcoat" class="product-image"/><button type="button" aria-label="Quick view" data-quick-view="product-6" class="quick-view-button"><img src="https://api.iconify.design/lucide-eye.svg?color=%23e5e7eb" alt="Eye Icon" class="quick-view-icon"/></button></div><div class="product-info"><h3 class="product-name">Cashmere Overcoat</h3><div class="product-price-row"><span class="product-price">$1,730</span><button type="button" class="add-to-cart-button">Add to Cart</button></div></div></article><article class="group product-card"><div class="product-media"><img loading="lazy" src="https://app.grapesjs.com/api/assets/random-image?query=%22silk%20scarf%22&amp;w=600&amp;h=700" alt="Silk Scarf with Gold Print" class="product-image"/><button type="button" aria-label="Quick view" data-quick-view="product-7" class="quick-view-button"><img src="https://api.iconify.design/lucide-eye.svg?color=%23e5e7eb" alt="Eye Icon" class="quick-view-icon"/></button></div><div class="product-info"><h3 class="product-name">Silk Scarf with Gold Print</h3><div class="product-price-row"><span class="product-price">$230</span><button type="button" class="add-to-cart-button">Add to Cart</button></div></div></article><article class="group product-card"><div class="product-media"><img loading="lazy" src="https://app.grapesjs.com/api/assets/random-image?query=%22luxury%20gown%22&amp;w=600&amp;h=700" alt="Garnet Satin Gown" class="product-image"/><button type="button" aria-label="Quick view" data-quick-view="product-8" class="quick-view-button"><img src="https://api.iconify.design/lucide-eye.svg?color=%23e5e7eb" alt="Eye Icon" class="quick-view-icon"/></button></div><div class="product-info"><h3 class="product-name">Garnet Satin Gown</h3><div class="product-price-row"><span class="product-price">$2,040</span><button type="button" class="add-to-cart-button">Add to Cart</button></div></div></article></div></div></section>
-                <footer class="footer"><div class="footer-container"><div class="footer-brand"><a href="#" class="group footer-logo-link"><img src="https://app.grapesjs.com/api/assets/random-image?query=%22luxury%20monogram%22&amp;w=40&amp;h=40" alt="Maison Élégance Logo" class="footer-logo-image"/><span class="group-hover:text-[color:var(--gjs-t-color-accent)] footer-logo-text">Maison Élégance</span></a><p class="footer-about">Timeless luxury designs crafted with uncompromising quality and attention to detail.</p><div class="footer-social"><a href="#" aria-label="Instagram" class="social-link"><img src="https://api.iconify.design/lucide-instagram.svg?color=%23e5e7eb" alt="Instagram Icon" class="social-icon"/></a><a href="#" aria-label="Facebook" class="social-link"><img src="https://api.iconify.design/lucide-facebook.svg?color=%23e5e7eb" alt="Facebook Icon" class="social-icon"/></a><a href="#" aria-label="Twitter" class="social-link"><img src="https://api.iconify.design/lucide-twitter.svg?color=%23e5e7eb" alt="Twitter Icon" class="social-icon"/></a></div></div><div class="footer-links-customer-service"><h5 class="footer-heading">Customer Service</h5><a href="#" class="gjs-t-link footer-link">Contact Us</a><a href="#" class="gjs-t-link footer-link">Shipping</a><a href="#" class="gjs-t-link footer-link">Returns</a><a href="#" class="gjs-t-link footer-link">FAQs</a></div><div class="footer-links-about"><h5 class="footer-heading">About Us</h5><a href="#" class="gjs-t-link footer-link">Our Story</a><a href="#" class="gjs-t-link footer-link">Atelier</a><a href="#" class="gjs-t-link footer-link">Sustainability</a><a href="#" class="gjs-t-link footer-link">Careers</a></div><div class="footer-newsletter"><h5 class="footer-heading">Newsletter</h5><p class="newsletter-description">Join our private list for new collections and exclusive events.</p><form method="get" class="newsletter-form"><label for="newsletterEmail" class="newsletter-label">Email</label><input type="email" id="newsletterEmail" placeholder="you@example.com" class="newsletter-input"/><button type="submit" class="gjs-t-button newsletter-submit">Subscribe</button></form></div></div><div class="footer-bottom"><span class="footer-copyright">© 2026 Maison Élégance. All rights reserved.</span><div class="footer-legal-links"><a href="#" class="gjs-t-link footer-link">Privacy</a><a href="#" class="gjs-t-link footer-link">Terms</a><a href="#" class="gjs-t-link footer-link">Cookies</a></div></div></footer><div id="quickViewBackdrop" role="dialog" aria-modal="true" aria-labelledby="quickViewTitle" class="quick-view-modal-backdrop"><div class="quick-view-modal"><div class="quick-view-header"><h4 id="quickViewTitle" class="quick-view-title">Quick View</h4><button type="button" aria-label="Close quick view" id="quickViewClose" class="quick-view-close"><img src="https://api.iconify.design/lucide-x.svg?color=%23e5e7eb" alt="Close Icon" class="close-icon"/></button></div><div class="quick-view-content"><div class="quick-view-image-wrapper"><img src="https://app.grapesjs.com/api/assets/random-image?query=%22luxury%20coat%22&amp;w=700&amp;h=600" alt="Quick View Product" id="quickViewImage" class="quick-view-image"/></div><div class="quick-view-info"><h5 id="quickViewName" class="quick-view-name">Emerald Double-Breasted Coat</h5><span id="quickViewPrice" class="quick-view-price">$1,480</span><p class="quick-view-description">A sharply tailored coat with velvet collar and horn buttons.</p><button type="button" class="gjs-t-button quick-view-add-cart">Add to Cart</button></div></div></div></div><div id="sizeGuideBackdrop" role="dialog" aria-modal="true" aria-labelledby="sizeGuideTitle" class="size-guide-modal-backdrop"><div class="size-guide-modal"><div class="size-guide-header"><h4 id="sizeGuideTitle" class="size-guide-title">Size Guide</h4><button type="button" aria-label="Close size guide" id="sizeGuideClose" class="size-guide-close"><img src="https://api.iconify.design/lucide-x.svg?color=%23e5e7eb" alt="Close Icon" class="close-icon"/></button></div><div class="size-guide-content"><p class="size-guide-intro">Measure your bust, waist, and hips. Compare with the chart to select the best size.</p><div class="size-chart-grid"><div class="size-chart-item"><span class="size-chart-label">XS</span><p class="size-chart-detail">Bust 80-84 • Waist 62-66 • Hips 86-90</p></div><div class="size-chart-item"><span class="size-chart-label">S</span><p class="size-chart-detail">Bust 84-88 • Waist 66-70 • Hips 90-94</p></div><div class="size-chart-item"><span class="size-chart-label">M</span><p class="size-chart-detail">Bust 88-92 • Waist 70-74 • Hips 94-98</p></div><div class="size-chart-item"><span class="size-chart-label">L</span><p class="size-chart-detail">Bust 92-96 • Waist 74-78 • Hips 98-102</p></div><div class="size-chart-item"><span class="size-chart-label">XL</span><p class="size-chart-detail">Bust 96-100 • Waist 78-82 • Hips 102-106</p></div></div></div></div></div><script>
-  (function(){
-    var slidesWrapper = document.getElementById('slidesWrapper');
-    var slides = slidesWrapper ? slidesWrapper.children : [];
-    var current = 0;
-    function showSlide(index){
-      for(var i=0;i<slides.length;i++){
-        slides[i].style.opacity = i===index ? '1' : '0';
-        slides[i].style.zIndex = i===index ? '1' : '0';
-      }
-      current = index;
-    }
-    function next(){
-      showSlide((current+1)%slides.length);
-    }
-    function prev(){
-      showSlide((current-1+slides.length)%slides.length);
-    }
-    var nextBtn = document.getElementById('nextSlide');
-    var prevBtn = document.getElementById('prevSlide');
-    if(nextBtn) nextBtn.addEventListener('click', next);
-    if(prevBtn) prevBtn.addEventListener('click', prev);
-    var auto = setInterval(next, 6000);
-
-    var menuToggle = document.getElementById('menuToggle');
-    var mobileMenu = document.getElementById('mobileMenu');
-    if(menuToggle && mobileMenu){
-      menuToggle.addEventListener('click', function(){
-        var visible = mobileMenu.classList.contains('hidden');
-        mobileMenu.classList.toggle('hidden', !visible);
-        mobileMenu.classList.toggle('block', visible);
-      });
-    }
-
-    var quickViewBackdrop = document.getElementById('quickViewBackdrop');
-    var quickViewClose = document.getElementById('quickViewClose');
-    var quickViewImage = document.getElementById('quickViewImage');
-    var quickViewName = document.getElementById('quickViewName');
-    var quickViewPrice = document.getElementById('quickViewPrice');
-    function openQuickView(img, name, price){
-      if(quickViewImage) quickViewImage.src = img;
-      if(quickViewName) quickViewName.textContent = name;
-      if(quickViewPrice) quickViewPrice.textContent = price;
-      if(quickViewBackdrop){
-        quickViewBackdrop.classList.remove('hidden');
-        quickViewBackdrop.classList.add('flex');
-      }
-    }
-    function closeQuickView(){
-      if(quickViewBackdrop){
-        quickViewBackdrop.classList.add('hidden');
-        quickViewBackdrop.classList.remove('flex');
-      }
-    }
-    document.querySelectorAll('[data-quick-view]').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        var card = btn.closest('[data-gjs-name="Product Card"]');
-        var imgEl = card ? card.querySelector('[data-gjs-name="Product Image"]') : null;
-        var nameEl = card ? card.querySelector('[data-gjs-name="Product Name"]') : null;
-        var priceEl = card ? card.querySelector('[data-gjs-name="Product Price"]') : null;
-        openQuickView(imgEl ? imgEl.src : '', nameEl ? nameEl.textContent : 'Product', priceEl ? priceEl.textContent : '$0');
-      });
-    });
-    if(quickViewClose) quickViewClose.addEventListener('click', closeQuickView);
-    if(quickViewBackdrop) quickViewBackdrop.addEventListener('click', function(e){ if(e.target===quickViewBackdrop) closeQuickView(); });
-
-    var sizeGuideBackdrop = document.getElementById('sizeGuideBackdrop');
-    var sizeGuideOpen = document.getElementById('sizeGuideOpen');
-    var sizeGuideClose = document.getElementById('sizeGuideClose');
-    function openSizeGuide(){
-      if(sizeGuideBackdrop){
-        sizeGuideBackdrop.classList.remove('hidden');
-        sizeGuideBackdrop.classList.add('flex');
-      }
-    }
-    function closeSizeGuide(){
-      if(sizeGuideBackdrop){
-        sizeGuideBackdrop.classList.add('hidden');
-        sizeGuideBackdrop.classList.remove('flex');
-      }
-    }
-    if(sizeGuideOpen) sizeGuideOpen.addEventListener('click', openSizeGuide);
-    if(sizeGuideClose) sizeGuideClose.addEventListener('click', closeSizeGuide);
-    if(sizeGuideBackdrop) sizeGuideBackdrop.addEventListener('click', function(e){ if(e.target===sizeGuideBackdrop) closeSizeGuide(); });
-
-    var pdMainImage = document.getElementById('pdMainImage');
-    if(pdMainImage){
-      pdMainImage.style.transition = 'transform 0.2s ease';
-      pdMainImage.addEventListener('mousemove', function(e){
-        var rect = pdMainImage.getBoundingClientRect();
-        var x = ((e.clientX - rect.left) / rect.width - 0.5) * 4;
-        var y = ((e.clientY - rect.top) / rect.height - 0.5) * 4;
-        pdMainImage.style.transform = 'scale(1.08) translate(' + (-x*5) + 'px,' + (-y*5) + 'px)';
-      });
-      pdMainImage.addEventListener('mouseleave', function(){
-        pdMainImage.style.transform = 'scale(1) translate(0,0)';
-      });
-    }
-    document.querySelectorAll('[data-thumb]').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        var src = btn.getAttribute('data-thumb');
-        if(pdMainImage && src) pdMainImage.src = src;
-      });
-    });
-  })();
-</script>
-
-
-<div id="modal" class="modal hidden">
-  <div class="modal-content">
-    <span id="closeBtn">&times;</span>
-    <h2 id="modalTitle">Login</h2>
-    <input type="email" id="authEmail" placeholder="Email">
-    <input type="password" id="authPassword" placeholder="Password">
-    <button id="authButton">Login</button>
-    
-    <p id="toggleText">
-      Don't have an account?
-      <a href="#" id="signUp">Signup</a>
-    </p>
+                </a></div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-controls"><button type="button" aria-label="Previous slide" id="prevSlide"
+            class="hero-prev-button"><img src="https://api.iconify.design/lucide-chevron-left.svg?color=%23e5e7eb"
+              alt="Prev Icon" class="prev-icon" /></button><button type="button" aria-label="Next slide" id="nextSlide"
+            class="hero-next-button"><img src="https://api.iconify.design/lucide-chevron-right.svg?color=%23e5e7eb"
+              alt="Next Icon" class="next-icon" /></button></div>
+      </div>
+    </div>
+  </section>
+  <section class="best-sellers-section">
+    <div class="section-header">
+      <h2 class="gjs-t-h2">Best Sellers</h2>      
+    </div>
+    <div class="section-description">
+      <p class="gjs-t-body">These are some our fan-favourites!</p>
+    </div>
+    <div class="product-grid" id="best-sellers-container">
+    </div>
+  </section>
+  <section class="on-sale-section">
+    <div class="on-sale-container">
+      <div class="section-header">
+      <h2 class="gjs-t-h2">On Sale</h2>      
+    </div>
+    <div class="section-description">
+      <p class="gjs-t-body">These are some of our discounted items!</p>
+    </div>
+      <div class="filter-bar">
+        
+        
+      </div>
+      <div class="product-grid">
+        
+        
+      </div>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand"><a href="#" class="group footer-logo-link"><img
+            src="images/logo.jpeg"
+            alt="Yanda Yarns Logo" class="footer-logo-image" /><span
+            class="group-hover:text-[color:var(--gjs-t-color-accent)] footer-logo-text">Yanda Yarns</span></a>
+        <p class="footer-about">Timeless luxury designs crafted with uncompromising quality and attention to detail.</p>
+        <div class="footer-social"><a href="#" aria-label="Instagram" class="social-link"><img
+              src="https://api.iconify.design/lucide-instagram.svg?color=%23e5e7eb" alt="Instagram Icon"
+              class="social-icon" /></a><a href="#" aria-label="Facebook" class="social-link"><img
+              src="https://api.iconify.design/lucide-facebook.svg?color=%23e5e7eb" alt="Facebook Icon"
+              class="social-icon" /></a><a href="#" aria-label="Twitter" class="social-link"><img
+              src="https://api.iconify.design/lucide-twitter.svg?color=%23e5e7eb" alt="Twitter Icon"
+              class="social-icon" /></a></div>
+      </div>
+      <div class="footer-links-customer-service">
+        <h5 class="footer-heading">Customer Service</h5><a href="#" class="gjs-t-link footer-link">Contact Us</a><a
+          href="#" class="gjs-t-link footer-link">Shipping</a><a href="#" class="gjs-t-link footer-link">Returns</a><a
+          href="#" class="gjs-t-link footer-link">FAQs</a>
+      </div>
+      <div class="footer-links-about">
+        <h5 class="footer-heading">About Us</h5><a href="#" class="gjs-t-link footer-link">Our Story</a><a href="#"
+          class="gjs-t-link footer-link">Atelier</a><a href="#" class="gjs-t-link footer-link">Sustainability</a><a
+          href="#" class="gjs-t-link footer-link">Careers</a>
+      </div>
+      <div class="footer-newsletter">
+        <h5 class="footer-heading">Newsletter</h5>
+        <p class="newsletter-description">Join our private list for new collections and exclusive events.</p>
+        <form method="get" class="newsletter-form"><label for="newsletterEmail"
+            class="newsletter-label">Email</label><input type="email" id="newsletterEmail" placeholder="you@example.com"
+            class="newsletter-input" /><button type="submit" class="gjs-t-button newsletter-submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom"><span class="footer-copyright">© 2026 Yanda Yarns. All rights reserved.</span>
+      <div class="footer-legal-links"><a href="#" class="gjs-t-link footer-link">Privacy</a><a href="#"
+          class="gjs-t-link footer-link">Terms</a><a href="#" class="gjs-t-link footer-link">Cookies</a></div>
+    </div>
+  </footer>
+  <div id="quickViewBackdrop" role="dialog" aria-modal="true" aria-labelledby="quickViewTitle"
+    class="quick-view-modal-backdrop">
+    <div class="quick-view-modal">
+      <div class="quick-view-header">
+        <h4 id="quickViewTitle" class="quick-view-title">Quick View</h4><button type="button"
+          aria-label="Close quick view" id="quickViewClose" class="quick-view-close"><img
+            src="https://api.iconify.design/lucide-x.svg?color=%23e5e7eb" alt="Close Icon"
+            class="close-icon" /></button>
+      </div>
+      <div class="quick-view-content">
+        <div class="quick-view-image-wrapper"><img
+            src="https://app.grapesjs.com/api/assets/random-image?query=%22luxury%20coat%22&amp;w=700&amp;h=600"
+            alt="Quick View Product" id="quickViewImage" class="quick-view-image" /></div>
+        <div class="quick-view-info">
+          <h5 id="quickViewName" class="quick-view-name">Emerald Double-Breasted Coat</h5><span id="quickViewPrice"
+            class="quick-view-price">$1,480</span>
+          <p class="quick-view-description">A sharply tailored coat with velvet collar and horn buttons.</p><button
+            type="button" class="gjs-t-button quick-view-add-cart">Add to Cart</button>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-
-<div id="cartModal" class="modal hidden">
-  <div class="modal-content">
-    <span id="closeCartBtn">&times;</span>
-    <h2>Your Cart</h2>
-    <div id="cartItems"></div>
-    <h3>Total: R<span id="cartTotal">0</span></h3>
-    <button id="checkoutButton">Checkout</button>
+  <div id="sizeGuideBackdrop" role="dialog" aria-modal="true" aria-labelledby="sizeGuideTitle"
+    class="size-guide-modal-backdrop">
+    <div class="size-guide-modal">
+      <div class="size-guide-header">
+        <h4 id="sizeGuideTitle" class="size-guide-title">Size Guide</h4><button type="button"
+          aria-label="Close size guide" id="sizeGuideClose" class="size-guide-close"><img
+            src="https://api.iconify.design/lucide-x.svg?color=%23e5e7eb" alt="Close Icon"
+            class="close-icon" /></button>
+      </div>
+      <div class="size-guide-content">
+        <p class="size-guide-intro">Measure your bust, waist, and hips. Compare with the chart to select the best size.
+        </p>
+        <div class="size-chart-grid">
+          <div class="size-chart-item"><span class="size-chart-label">XS</span>
+            <p class="size-chart-detail">Bust 80-84 • Waist 62-66 • Hips 86-90</p>
+          </div>
+          <div class="size-chart-item"><span class="size-chart-label">S</span>
+            <p class="size-chart-detail">Bust 84-88 • Waist 66-70 • Hips 90-94</p>
+          </div>
+          <div class="size-chart-item"><span class="size-chart-label">M</span>
+            <p class="size-chart-detail">Bust 88-92 • Waist 70-74 • Hips 94-98</p>
+          </div>
+          <div class="size-chart-item"><span class="size-chart-label">L</span>
+            <p class="size-chart-detail">Bust 92-96 • Waist 74-78 • Hips 98-102</p>
+          </div>
+          <div class="size-chart-item"><span class="size-chart-label">XL</span>
+            <p class="size-chart-detail">Bust 96-100 • Waist 78-82 • Hips 102-106</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+  <script>
+    (function () {
+      var slidesWrapper = document.getElementById('slidesWrapper');
+      var slides = slidesWrapper ? slidesWrapper.children : [];
+      var current = 0;
+      function showSlide(index) {
+        for (var i = 0; i < slides.length; i++) {
+          slides[i].style.opacity = i === index ? '1' : '0';
+          slides[i].style.zIndex = i === index ? '1' : '0';
+        }
+        current = index;
+      }
+      function next() {
+        showSlide((current + 1) % slides.length);
+      }
+      function prev() {
+        showSlide((current - 1 + slides.length) % slides.length);
+      }
+      var nextBtn = document.getElementById('nextSlide');
+      var prevBtn = document.getElementById('prevSlide');
+      if (nextBtn) nextBtn.addEventListener('click', next);
+      if (prevBtn) prevBtn.addEventListener('click', prev);
+      var auto = setInterval(next, 6000);
+
+      var menuToggle = document.getElementById('menuToggle');
+      var mobileMenu = document.getElementById('mobileMenu');
+      if (menuToggle && mobileMenu) {
+        menuToggle.addEventListener('click', function () {
+          var visible = mobileMenu.classList.contains('hidden');
+          mobileMenu.classList.toggle('hidden', !visible);
+          mobileMenu.classList.toggle('block', visible);
+        });
+      }
+
+      var quickViewBackdrop = document.getElementById('quickViewBackdrop');
+      var quickViewClose = document.getElementById('quickViewClose');
+      var quickViewImage = document.getElementById('quickViewImage');
+      var quickViewName = document.getElementById('quickViewName');
+      var quickViewPrice = document.getElementById('quickViewPrice');
+      function openQuickView(img, name, price) {
+        if (quickViewImage) quickViewImage.src = img;
+        if (quickViewName) quickViewName.textContent = name;
+        if (quickViewPrice) quickViewPrice.textContent = price;
+        if (quickViewBackdrop) {
+          quickViewBackdrop.classList.remove('hidden');
+          quickViewBackdrop.classList.add('flex');
+        }
+      }
+      function closeQuickView() {
+        if (quickViewBackdrop) {
+          quickViewBackdrop.classList.add('hidden');
+          quickViewBackdrop.classList.remove('flex');
+        }
+      }
+      document.querySelectorAll('[data-quick-view]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var card = btn.closest('[data-gjs-name="Product Card"]');
+          var imgEl = card ? card.querySelector('[data-gjs-name="Product Image"]') : null;
+          var nameEl = card ? card.querySelector('[data-gjs-name="Product Name"]') : null;
+          var priceEl = card ? card.querySelector('[data-gjs-name="Product Price"]') : null;
+          openQuickView(imgEl ? imgEl.src : '', nameEl ? nameEl.textContent : 'Product', priceEl ? priceEl.textContent : '$0');
+        });
+      });
+      if (quickViewClose) quickViewClose.addEventListener('click', closeQuickView);
+      if (quickViewBackdrop) quickViewBackdrop.addEventListener('click', function (e) { if (e.target === quickViewBackdrop) closeQuickView(); });
+
+      var sizeGuideBackdrop = document.getElementById('sizeGuideBackdrop');
+      var sizeGuideOpen = document.getElementById('sizeGuideOpen');
+      var sizeGuideClose = document.getElementById('sizeGuideClose');
+      function openSizeGuide() {
+        if (sizeGuideBackdrop) {
+          sizeGuideBackdrop.classList.remove('hidden');
+          sizeGuideBackdrop.classList.add('flex');
+        }
+      }
+      function closeSizeGuide() {
+        if (sizeGuideBackdrop) {
+          sizeGuideBackdrop.classList.add('hidden');
+          sizeGuideBackdrop.classList.remove('flex');
+        }
+      }
+      if (sizeGuideOpen) sizeGuideOpen.addEventListener('click', openSizeGuide);
+      if (sizeGuideClose) sizeGuideClose.addEventListener('click', closeSizeGuide);
+      if (sizeGuideBackdrop) sizeGuideBackdrop.addEventListener('click', function (e) { if (e.target === sizeGuideBackdrop) closeSizeGuide(); });
+
+      var pdMainImage = document.getElementById('pdMainImage');
+      if (pdMainImage) {
+        pdMainImage.style.transition = 'transform 0.2s ease';
+        pdMainImage.addEventListener('mousemove', function (e) {
+          var rect = pdMainImage.getBoundingClientRect();
+          var x = ((e.clientX - rect.left) / rect.width - 0.5) * 4;
+          var y = ((e.clientY - rect.top) / rect.height - 0.5) * 4;
+          pdMainImage.style.transform = 'scale(1.08) translate(' + (-x * 5) + 'px,' + (-y * 5) + 'px)';
+        });
+        pdMainImage.addEventListener('mouseleave', function () {
+          pdMainImage.style.transform = 'scale(1) translate(0,0)';
+        });
+      }
+      document.querySelectorAll('[data-thumb]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var src = btn.getAttribute('data-thumb');
+          if (pdMainImage && src) pdMainImage.src = src;
+        });
+      });
+    })();
+  </script>
 
 
- <script type="module" src="./script.js"></script>
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeBtn">&times;</span>
+      <h2 id="modalTitle">Login</h2>
+      <input type="email" id="authEmail" placeholder="Email">
+      <input type="password" id="authPassword" placeholder="Password">
+      <button id="authButton">Login</button>
+
+      <p id="toggleText">
+        Don't have an account?
+        <a href="#" id="signUp">Signup</a>
+      </p>
+    </div>
+  </div>
+
+  <div id="cartModal" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeCartBtn">&times;</span>
+      <h2>Your Cart</h2>
+      <div id="cartItems"></div>
+      <h3>Total: R<span id="cartTotal">0</span></h3>
+      <button id="goToCheckout">Go To Checkout</button>
+    </div>
+  </div>
+
+
+  <script type="module" src="./script.js"></script>
 </body>
+
 </html>
