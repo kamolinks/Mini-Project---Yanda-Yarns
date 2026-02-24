@@ -1,3 +1,12 @@
+  <!-- Order Placed Modal -->
+  <div id="orderPlacedModal" class="modal hidden">
+    <div class="modal-content">
+      <span id="orderPlacedCloseBtn">&times;</span>
+      <h2>Order Placed</h2>
+      <img id="orderPlacedImage" src="images/order-success.jpg" alt="Order Success" style="width:120px;height:auto;margin:16px auto;display:block;" />
+      <p>Your order has been placed successfully!</p>
+    </div>
+  </div>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -101,8 +110,23 @@
         </div>
         <aside class="cart-summary" id="orderSummary">
           <h4 class="cart-summary-title">Order Summary</h4>
-          <div class="cart-items" id="cartItemsSummary"></div><span class="subtotal-value" id="subTotal">R0</span>
-          <span class="total-value" id="total">R0</span>
+          <div class="cart-items-scroll">
+            <div class="cart-items" id="cartItemsSummary"></div>
+          </div>
+          <div class="order-summary-footer">
+            <div class="order-summary-row">
+              <span class="order-summary-label">Subtotal</span>
+              <span class="subtotal-value" id="subTotal">R0</span>
+            </div>
+            <div class="order-summary-row">
+              <span class="order-summary-label">Delivery Fee</span>
+              <span class="delivery-fee-value" id="deliveryFee">R0</span>
+            </div>
+            <div class="order-summary-row">
+              <span class="order-summary-label">Total</span>
+              <span class="total-value" id="total">R0</span>
+            </div>
+          </div>
         </aside>
       </div>
     </section>
@@ -124,10 +148,11 @@
     <footer class="footer">
       <div class="footer-container">
         <div class="footer-brand"><a href="#" class="group footer-logo-link"><img
-              src="https://app.grapesjs.com/api/assets/random-image?query=%22luxury%20monogram%22&amp;w=40&amp;h=40"
+              src="images/logo.jpeg"
               alt="Maison Élégance Logo" class="footer-logo-image" /><span
               class="group-hover:text-[color:var(--gjs-t-color-accent)] footer-logo-text">Maison Élégance</span></a>
-          <p class="footer-about">Timeless luxury designs crafted with uncompromising quality and attention to detail.
+          <p class="footer-about">Handcrafted crochet pieces made with care, creativity, and attention to detail. 
+            Designed to bring warmth, texture, and timeless charm to your everyday style.
           </p>
           <div class="footer-social"><a href="#" aria-label="Instagram" class="social-link"><img
                 src="https://api.iconify.design/lucide-instagram.svg?color=%23e5e7eb" alt="Instagram Icon"
@@ -161,58 +186,8 @@
             class="gjs-t-link footer-link">Terms</a><a href="#" class="gjs-t-link footer-link">Cookies</a></div>
       </div>
     </footer>
-    <div id="quickViewBackdrop" role="dialog" aria-modal="true" aria-labelledby="quickViewTitle"
-      class="quick-view-modal-backdrop">
-      <div class="quick-view-modal">
-        <div class="quick-view-header">
-          <h4 id="quickViewTitle" class="quick-view-title">Quick View</h4><button type="button"
-            aria-label="Close quick view" id="quickViewClose" class="quick-view-close"><img
-              src="https://api.iconify.design/lucide-x.svg?color=%23e5e7eb" alt="Close Icon"
-              class="close-icon" /></button>
-        </div>
-        <div class="quick-view-content">
-          <div class="quick-view-image-wrapper"><img
-              src="https://app.grapesjs.com/api/assets/random-image?query=%22luxury%20coat%22&amp;w=700&amp;h=600"
-              alt="Quick View Product" id="quickViewImage" class="quick-view-image" /></div>
-          <div class="quick-view-info">
-            <h5 id="quickViewName" class="quick-view-name">Emerald Double-Breasted Coat</h5><span id="quickViewPrice"
-              class="quick-view-price">$1,480</span>
-            <p class="quick-view-description">A sharply tailored coat with velvet collar and horn buttons.</p><button
-              type="button" class="gjs-t-button quick-view-add-cart">Add to Cart</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="sizeGuideBackdrop" role="dialog" aria-modal="true" aria-labelledby="sizeGuideTitle"
-      class="size-guide-modal-backdrop">
-      <div class="size-guide-modal">
-        <div class="size-guide-header">
-          <h4 id="sizeGuideTitle" class="size-guide-title">Size Guide</h4><button type="button"
-            aria-label="Close size guide" id="sizeGuideClose" class="size-guide-close"><img
-              src="https://api.iconify.design/lucide-x.svg?color=%23e5e7eb" alt="Close Icon"
-              class="close-icon" /></button>
-        </div>
-        <div class="size-guide-content">
-          <p class="size-guide-intro">Measure your bust, waist, and hips. Compare with the chart to select the best
-            size.</p>
-          <div class="size-chart-grid">
-            <div class="size-chart-item"><span class="size-chart-label">XS</span>
-              <p class="size-chart-detail">Bust 80-84 • Waist 62-66 • Hips 86-90</p>
-            </div>
-            <div class="size-chart-item"><span class="size-chart-label">S</span>
-              <p class="size-chart-detail">Bust 84-88 • Waist 66-70 • Hips 90-94</p>
-            </div>
-            <div class="size-chart-item"><span class="size-chart-label">M</span>
-              <p class="size-chart-detail">Bust 88-92 • Waist 70-74 • Hips 94-98</p>
-            </div>
-            <div class="size-chart-item"><span class="size-chart-label">L</span>
-              <p class="size-chart-detail">Bust 92-96 • Waist 74-78 • Hips 98-102</p>
-            </div>
-            <div class="size-chart-item"><span class="size-chart-label">XL</span>
-              <p class="size-chart-detail">Bust 96-100 • Waist 78-82 • Hips 102-106</p>
-            </div>
-          </div>
-        </div>
+  
+        
       </div>
     </div>
     <script>
@@ -335,6 +310,7 @@
         </p>
       </div>
     </div>
+    <script src="./script.js" type="module"></script>
     <script src="./checkout.js" type="module"></script>
 </body>
 

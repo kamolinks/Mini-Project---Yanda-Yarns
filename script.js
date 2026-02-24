@@ -1,6 +1,6 @@
 // Kamogelo Tsele  (TSLKAM002)
 // This script file contains the logic of the web app
-import { getProducts, getOnSaleProducts } from "./firebaseauth.js";
+import { getProducts } from "./firebaseauth.js";
 import { saveUserCart } from "./firebaseauth.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
@@ -16,8 +16,45 @@ document.addEventListener('DOMContentLoaded', function() {
   const closeBtn = document.getElementById("closeBtn");
   let cart = [];
   let products = [];
+
+  //function to call header and footer
+  // async function loadComponents(id, file){
+  //   const response = await fetch(file);
+  //   const data = await response.text();
+  //   document.getElementById(id).innerHTML = data;
+  // }
+
+  // loadComponents("header", "header.html");
+  // loadComponents("footer", "footer.html");
+
+  // Quick view button functionality: redirect to item description page
+  document.addEventListener("click", (event) => {
+    const quickViewBtn = event.target.closest(".quick-view-button");
+    if (!quickViewBtn) return;
+    const productCard = quickViewBtn.closest(".product-card");
+    if (!productCard) return;
+    const productName = productCard.querySelector(".product-name")?.textContent;
+    // Find product by name (or use id if available)
+    const selectedProduct = products.find(p => p.name === productName);
+    if (!selectedProduct) return;
+    // Redirect to item description page with product id as query param
+    window.location.href = `itemDescription.html?id=${selectedProduct.id}`;
+  });
   
-  
+  // cart function if the user is not logged in.
+  function saveCartLocally(){
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+
+  function loadCartFromLocalStorage(){
+    const savedCart = localStorage.getItem("cart");
+    if(savedCart){
+      cart = JSON.parse(savedCart);
+    }
+    updateCartItems(); // Always update badge, even if cart is empty
+  }
+
+  loadCartFromLocalStorage();
 
   // Open modal when account link or icon is clicked
   if (accountLink) {
@@ -133,7 +170,8 @@ document.addEventListener('DOMContentLoaded', function() {
       loadUserCart(); // Load cart from Firestore and update cart count
     } else {
       showLoggedOutView();
-      cartCount.textContent = '0'; // Reset cart count when logged out
+      // For guests, reload cart from localStorage and update badge
+      loadCartFromLocalStorage();
     }
   });
   
@@ -276,7 +314,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     updateCartItems();
-    saveCartToFirestore();
+
+    if (auth.currentUser) {
+      saveCartToFirestore();
+    } else {
+      saveCartLocally();
+    }
   });
 
 
@@ -323,12 +366,20 @@ document.addEventListener('DOMContentLoaded', function() {
     cartItems.innerHTML = "";
     let total = 0;
 
-    // Read cart from user document (not subcollection)
-    const docRef = doc(db, "users", auth.currentUser.uid);
-    const docSnap = await getDoc(docRef);
     let userCart = [];
-    if (docSnap.exists()) {
-      userCart = docSnap.data().cart || [];
+    if (auth.currentUser) {
+      // Logged-in: load cart from Firestore
+      const docRef = doc(db, "users", auth.currentUser.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        userCart = docSnap.data().cart || [];
+      }
+    } else {
+      // Guest: load cart from localStorage
+      const savedCart = localStorage.getItem("cart");
+      if (savedCart) {
+        userCart = JSON.parse(savedCart);
+      }
     }
 
     userCart.forEach((item) => {
@@ -359,10 +410,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const productId = cartItemDiv.getAttribute("data-product-id");
     if (!productId) return;
 
-    // Get latest cart from Firestore
-    const docRef = doc(db, "users", auth.currentUser.uid);
-    const docSnap = await getDoc(docRef);
-    let userCart = docSnap.exists() ? docSnap.data().cart || [] : [];
+    let userCart = [];
+    if (auth.currentUser) {
+      // Logged-in: get cart from Firestore
+      const docRef = doc(db, "users", auth.currentUser.uid);
+      const docSnap = await getDoc(docRef);
+      userCart = docSnap.exists() ? docSnap.data().cart || [] : [];
+    } else {
+      // Guest: get cart from localStorage
+      const savedCart = localStorage.getItem("cart");
+      userCart = savedCart ? JSON.parse(savedCart) : [];
+    }
 
     // Find item index
     const itemIndex = userCart.findIndex(item => item.product.id === productId);
@@ -381,9 +439,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Save updated cart
-    await saveUserCart(auth.currentUser.uid, userCart);
+    if (auth.currentUser) {
+      await saveUserCart(auth.currentUser.uid, userCart);
+    } else {
+      localStorage.setItem("cart", JSON.stringify(userCart));
+    }
     await loadCart();
-    // Update local cart and badge
     cart = userCart;
     updateCartItems();
   });

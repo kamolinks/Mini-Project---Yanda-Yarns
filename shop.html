@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <a href="index.html">
+    <title>MD Elegance - Own your moment</title>
+  </a>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="index,follow">
+  <meta name="generator" content="GrapesJS Studio">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="firebaseauth.js"></script>
+  <script src="./script.js"></script>
+</head>
+
+<body class="gjs-t-body body-wrapper">
+  <div id="header"></div>
+
+    <section class="dresses-section">
+      <div id="dressesContainer"></div>
+    </section>
+    <div id="footer"></div>
+    
+    
+    
+    <div id="modal" class="modal hidden">
+      <div class="modal-content">
+        <span id="closeBtn">&times;</span>
+        <h2 id="modalTitle">Login</h2>
+        <input type="email" id="authEmail" placeholder="Email">
+        <input type="password" id="authPassword" placeholder="Password">
+        <button id="authButton">Login</button>
+
+        <p id="toggleText">
+          Don't have an account?
+          <a href="#" id="signUp">Signup</a>
+        </p>
+      </div>
+    </div>
+
+</body>
+
+</html>

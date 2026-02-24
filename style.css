@@ -1,3 +1,57 @@
+/* Order Placed Modal Styles */
+#orderPlacedModal.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+#orderPlacedModal .modal-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px 24px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+  text-align: center;
+  max-width: 350px;
+  width: 100%;
+}
+#orderPlacedModal .modal-content h2 {
+  color: var(--gjs-t-color-success);
+  margin-bottom: 12px;
+}
+#orderPlacedModal .modal-content p {
+  margin-top: 8px;
+  font-size: 1.1rem;
+}
+#orderPlacedModal .modal-content img {
+  margin: 0 auto 12px auto;
+}
+#orderPlacedModal .modal-content #orderPlacedCloseBtn {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.modal.hidden {
+  display: none !important;
+}
+.order-summary-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+.order-summary-label {
+  min-width: 70px;
+  font-weight: 500;
+  color: #333;
+}
 .increase-qty,
 .decrease-qty {
   background-color: transparent !important;
@@ -344,7 +398,7 @@ video {
   position: sticky;
   top: 0px;
   z-index: 50;
-  background-color: white;
+  background-color: whitesmoke;
   backdrop-filter: blur(8px);
   border-bottom-width: 1px;
   border-color: rgb(38 38 38 / 1);
@@ -419,6 +473,38 @@ video {
   outline-offset: 2px;
   box-shadow: 0 0 0 0px #fff, 0 0 0 calc(2px + 0px) rgb(59 130 246 / 0.5), 0 0 #0000;
 }
+
+.dropdown {
+          position: relative;
+          display: inline-block;
+        }
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #fff;
+          min-width: 160px;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 1000;
+          border-radius: 8px;
+          overflow: hidden;
+        }
+        .dropdown-content a {
+          color: #333;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+          transition: background 0.2s;
+        }
+        .dropdown-content a:hover {
+          background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content,
+        .dropdown:focus-within .dropdown-content {
+          display: block;
+        }
+        .dropdown > a.nav-link:after {
+          font-size: 0.7em;
+        }
 
 .header-actions {
   display: flex;
@@ -1768,11 +1854,29 @@ video {
   grid-column: span 1 / span 1;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
   border-radius: 1rem;
   box-shadow: 0 0 0 0px #fff, 0 0 0 calc(1px + 0px) rgb(59 130 246 / 0.5), 0 0 #0000;
   padding: 1.5rem;
   background-color: white;
+  height: 420px;
+  position: relative;
+}
+
+.cart-items-scroll {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 260px;
+  margin-bottom: 1rem;
+}
+
+.order-summary-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  padding: 1rem 1.5rem 0.5rem 1.5rem;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.03);
 }
 
 .cart-summary-title {
@@ -1799,6 +1903,28 @@ video {
   height: 4rem;
   border-radius: 0.375rem;
   object-fit: cover;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 8px 0;
+  background-color: beige;
+  border-radius: 10%;
+}
+.order-item-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 0.375rem;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.order-item-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
 }
 
 .cart-item-info {
@@ -1846,7 +1972,7 @@ video {
 }
 
 .subtotal-value {
-  color: rgb(229 229 229 / 1);
+  color: black;
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
@@ -1937,7 +2063,7 @@ video {
 .footer-logo-image {
   width: 2.5rem;
   height: 2.5rem;
-  border-radius: 9999px;
+  border-radius: 0.5rem;
   object-fit: cover;
   box-shadow: 0 0 0 0px #fff, 0 0 0 calc(1px + 0px) rgb(59 130 246 / 0.5), 0 0 #0000;
 }

@@ -14,30 +14,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Listen for auth state changes and update UI accordingly
     onAuthStateChanged(auth, (user) => {
-        if (user) {
-            displayOrderSummary(user);
-            if (completeOrderBtn) completeOrderBtn.disabled = false;
-        } else {
-            cartItemsSummary.innerHTML = "<p>Please log in to see your order summary.</p>";
-            subTotalElement.textContent = "R0";
-            totalElement.textContent = "R0";
-            if (completeOrderBtn) completeOrderBtn.disabled = true;
-        }
+        displayOrderSummary(user);
+        if (completeOrderBtn) completeOrderBtn.disabled = false;
     });
 
     async function displayOrderSummary(user) {
-        if (!user) {
-            cartItemsSummary.innerHTML = "<p>Please log in to see your order summary.</p>";
+        let userCart = [];
+        if (user) {
+            // Logged-in: get cart from Firestore
+            const docRef = doc(db, "users", user.uid);
+            const docSnap = await getDoc(docRef);
+            userCart = docSnap.exists() ? docSnap.data().cart || [] : [];
+        } else {
+            // Guest: get cart from localStorage
+            const savedCart = localStorage.getItem("cart");
+            userCart = savedCart ? JSON.parse(savedCart) : [];
+        }
+        let subTotal = 0;
+        cartItemsSummary.innerHTML = "";
+        if (userCart.length === 0) {
+            cartItemsSummary.innerHTML = "<p>Your cart is empty.</p>";
             subTotalElement.textContent = "R0";
+            document.getElementById("deliveryFee").textContent = "R0";
             totalElement.textContent = "R0";
             return;
         }
-        // Get cart from user document
-        const docRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(docRef);
-        let userCart = docSnap.exists() ? docSnap.data().cart || [] : [];
-        let subTotal = 0;
-        cartItemsSummary.innerHTML = "";
         userCart.forEach(item => {
             const itemTotal = item.product.price * item.quantity;
             subTotal += itemTotal;
@@ -54,7 +55,9 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         });
         subTotalElement.textContent = `R${subTotal.toFixed(2)}`;
-        totalElement.textContent = `R${subTotal.toFixed(2)}`;
+        const deliveryFee = subTotal * 0.10;
+        document.getElementById("deliveryFee").textContent = `R${deliveryFee.toFixed(2)}`;
+        totalElement.textContent = `R${(subTotal + deliveryFee).toFixed(2)}`;
     }
 
     completeOrderBtn.addEventListener("click", async (e) => {
@@ -66,7 +69,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const user = auth.currentUser;
         if (!user) {
-            alert("You must be logged in to place an order.");
+            // Show login modal if not logged in
+            const modal = document.getElementById("modal");
+            if (modal) {
+                modal.style.display = "flex";
+            } else {
+                alert("You must be logged in to place an order.");
+            }
             return;
         }
 
@@ -100,7 +109,20 @@ document.addEventListener('DOMContentLoaded', function() {
             total: userCart.reduce((total, item) => total + item.product.price * item.quantity, 0),
             Timestamp: new Date()
         });
-        alert("Order placed successfully!");
+        // Show order placed modal
+        const orderPlacedModal = document.getElementById("orderPlacedModal");
+        if (orderPlacedModal) {
+            orderPlacedModal.classList.remove("hidden");
+            orderPlacedModal.style.display = "flex";
+            // Hide modal and redirect after 3 seconds
+            setTimeout(() => {
+                orderPlacedModal.style.display = "none";
+                window.location.href = "index.html";
+            }, 3000);
+        } else {
+            alert("Order placed successfully!");
+            window.location.href = "index.html";
+        }
 
         // Clear cart array in user document
         await saveUserCart(auth.currentUser.uid, []);

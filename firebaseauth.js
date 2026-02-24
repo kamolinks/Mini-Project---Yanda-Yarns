@@ -28,12 +28,6 @@ import { addDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-fires
     return querySnapshot;
   }
 
-  export async function getOnSaleProducts() {
-    const q = query(collection(db, "Products"), where("on-sale", "==", true));
-    const querySnapshot = await getDocs(q);
-    return querySnapshot;
-  }
-
   // Export functions globally so they can be used in other scripts
   window.auth = auth;
   window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
@@ -46,7 +40,6 @@ import { addDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-fires
   window.getDoc = getDoc;
   window.addDoc = addDoc;
   window.collection = collection;
-  window.getOnSaleProducts = getOnSaleProducts;
 
   //Save user cart to Firestore
   export async function saveUserCart(userId, cart) {

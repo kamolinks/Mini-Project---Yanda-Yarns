@@ -41,12 +41,25 @@
           id="cartCount">0</span></button><button type="button" aria-label="Open menu" id="menuToggle"
         class="mobile-menu-button"><img src="https://api.iconify.design/lucide-menu.svg?color=%23e5e7eb" alt="Menu Icon"
           class="menu-icon" /></button>
+    
     </div>
     <div class="nav-container">
       <nav class="header-navigation">
-          <a href="#" class="gjs-t-link nav-link">Home</a><a href="women.html" class="gjs-t-link nav-link">Shop</a><a
-            href="#" class="gjs-t-link nav-link">Request</a><a href="#" class="gjs-t-link nav-link">About Us</a>
-        </nav>
+        <a href="#" class="gjs-t-link nav-link">Home</a>
+        <div class="nav-link dropdown" id="shopDropdown">
+          <a href="shop.html" class="gjs-t-link nav-link" id="shopLink">Shop</a>
+          <div class="dropdown-content" id="shopDropdownContent">
+            <a href="shop.html">All</a>
+            <a href="shop.html?category=clothing">Clothing</a>
+            <a href="shop.html?category=hats">Hats</a>
+            <a href="shop.html?category=bags">Bags</a>
+            <a href="shop.html?category=accessories">Accessories</a>
+          </div>
+        </div>
+        <a href="#" class="gjs-t-link nav-link">Request</a>
+        <a href="#" class="gjs-t-link nav-link">About Us</a>
+      </nav>
+      
     </div>
     </div>
     <div id="mobileMenu" class="mobile-menu-panel">
@@ -144,7 +157,8 @@
             src="images/logo.jpeg"
             alt="Yanda Yarns Logo" class="footer-logo-image" /><span
             class="group-hover:text-[color:var(--gjs-t-color-accent)] footer-logo-text">Yanda Yarns</span></a>
-        <p class="footer-about">Timeless luxury designs crafted with uncompromising quality and attention to detail.</p>
+        <p class="footer-about">Handcrafted crochet pieces made with care, creativity, and attention to detail. 
+          Designed to bring warmth, texture, and timeless charm to your everyday style.</p>
         <div class="footer-social"><a href="#" aria-label="Instagram" class="social-link"><img
               src="https://api.iconify.design/lucide-instagram.svg?color=%23e5e7eb" alt="Instagram Icon"
               class="social-icon" /></a><a href="#" aria-label="Facebook" class="social-link"><img
