@@ -1,4 +1,4 @@
-import { getFirestore, setDoc, doc, collection, getDocs, query, where, getDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+import { getFirestore, setDoc, doc, collection, getDocs, query, where, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 import { updateDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
@@ -40,6 +40,7 @@ import { addDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-fires
   window.getDoc = getDoc;
   window.addDoc = addDoc;
   window.collection = collection;
+  window.deleteDoc = deleteDoc;
 
   //Save user cart to Firestore
   export async function saveUserCart(userId, cart) {

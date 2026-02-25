@@ -1,59 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <a href="index.html"><title>MD Elegance - Own your moment</title></a>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="robots" content="index,follow">
-  <meta name="generator" content="GrapesJS Studio">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<head>
+  <title>Yanda Yarns Admin</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="./admin.css">
   <script type="module" src="firebaseauth.js"></script>
-  
-  </head>
-  <body class="gjs-t-body body-wrapper">
-    <div class="grid-container">
-
-      <!-- Header -->
-       <header class="header">
-        <div class="logo" onclick="location.href='index.html'">MD Elegance</div>
-        <div class="menu-icon" onClick="toggleSidebar()">
-          <span class="material-icons" id="menuToggle">menu</span>
+  <script type="module" src="admin.js"></script>
+</head>
+<body class="gjs-t-body body-wrapper">
+  <header class="header">
+    <div class="header-container">
+      <a href="index.html" class="group header-logo-link">
+        <img src="images/logo.jpeg" alt="Yanda Yarns Logo" class="header-logo-image" />
+        <span class="group-hover:text-[color:var(--gjs-t-color-accent)] header-logo-text">Yanda Yarns</span>
+      </a>
+      <div class="header-actions">
+        <span class="account-text">Admin Panel</span>
+        <button id="logoutBtn">Sign Out</button>
+      </div>
+    </div>
+    <div class="nav-container">
+      <nav class="header-navigation">
+        <a href="#" class="gjs-t-link nav-link active">Manage Products</a>
+        <a href="#" class="gjs-t-link nav-link">Orders</a>
+        <a href="#" class="gjs-t-link nav-link">Customers</a>
+      </nav>
+    </div>
+  </header>
+  <main class="admin-main">
+    <section class="admin-section">
+      <h2 class="gjs-t-h2 admin-section-heading">Manage Products</h2>
+      <div class="admin-action-row">
+        <button class="gjs-t-button" id="addProductBtn" style="padding: 8px 18px;">Add New Product</button>
+        <input class="gjs-t-input" type="text" id="productSearchInput" placeholder="Search products..." style="padding: 8px 12px; border-radius: 6px; border: 1px solid #ccc; font-size: 1rem;" />
+        <button class="gjs-t-button" id="productSearchBtn" style="padding: 8px 18px;">Search</button>
+          <select id="filterByCombo">
+            <option value="all">All</option>
+            <option value="top-seller">Top Seller</option>
+            <option value="on-sale">On Sale</option>
+            <option value="clothing">Clothing</option>
+            <option value="hats">Hats</option>
+            <option value="bags">Bags</option>
+            <option value="accessories">Accessories</option>
+          </select>
+          <button class="gjs-t-button" id="filterApplyBtn" style="padding: 8px 18px; margin-right: 18px;">Apply</button>
+      </div>
+      <div id="adminActions" class="admin-actions" style="display:none;margin-bottom:16px;text-align:center;"></div>
+      <div id="productFormModal" class="modal hidden">
+        <div class="modal-content">
+          <span id="closeProductForm" class="close-btn">&times;</span>
+          <h3 id="formTitle">Add/Edit Product</h3>
+          <form id="productForm">
+            <label>Product ID</label>
+            <input type="text" id="productId" required style="margin-bottom:10px; border:1px solid #ccc; border-radius:6px; width:100%;" />
+            <label>Name</label>
+            <input type="text" id="productName" required />
+            <label>Cost Price</label>
+            <input type="number" id="productCostPrice" required style="margin-bottom:10px; border:1px solid #ccc; border-radius:6px; width:100%;" />
+            <label>Price</label>
+            <input type="number" id="productPrice" required />
+            <label>Category</label>
+            <select id="productCategory" required>
+              <option value="clothing">Clothing</option>
+              <option value="hats">Hats</option>
+              <option value="bags">Bags</option>
+              <option value="accessories">Accessories</option>
+            </select>
+            <br>
+            <label for="productImageSelect" style="display:block;margin-top:8px;">Select Image</label>
+            <select id="productImageSelect" required style="margin-bottom:8px;width:100%;">
+              <option value="">-- Select an image --</option>
+            </select>
+            <label>Description</label>
+            <br>
+            <textarea id="productDescription" required style="border:1px solid #ccc; border-radius:6px; width:100%; min-height:80px; margin-bottom:12px;"></textarea>
+            <label style="display:block;margin:8px 0 4px 0;"><input type="checkbox" id="productTopSeller"> Top Seller</label>
+            <label style="display:block;margin-bottom:12px;"><input type="checkbox" id="productOnSale"> On Sale</label>
+            <button type="submit" class="gjs-t-button">Save Product</button>
+          </form>
         </div>
-
-        <div class="header-left">
-          <span class="material-icons">search</span>
+      </div>
+      <div class="product-list admin-product-list-spacing" id="adminProductList">
+        <div style="border-radius:10px;">
+          <!-- Sticky header fix: set min-width for table -->
+          <table class="admin-product-table">
+            <thead>
+              <tr>
+                <th>Product ID</th>
+                <th>Name</th>
+                <th>Cost Price</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Top Seller</th>
+                <th>On Sale</th>
+              </tr>
+            </thead>
+            <tbody id="adminProductTableBody">
+              <!-- Product rows will be dynamically inserted here -->
+            </tbody>
+          </table>
         </div>
-
-        <div class="header-right">
-          <span class="material-icons">notifications</span>
-          <span class="material-icons">email</span>
-          <span class="material-icons">account</span>
-          <button id="goHome" onclick="location.href='index.html'">Go Home</button>
-        </div>
-      </header>
-
-
-      <!-- Sidebar -->
-      <aside class="sidebar" id="sidebar">
-        <nav>
-          <ul>
-            <li><a href="#">Overview</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Orders</a></li>
-            <li><a href="#">Customers</a></li>
-            <li><a href="#">Finances</a></li>
-          </ul>
-        </nav>
-      </aside>
-
-      <!-- Main Content -->
-      <main class="main-content">
-        <h1>Admin Dashboard</h1>
-        <p>Welcome to the admin dashboard. Here you can manage products, view orders, and handle customer inquiries.</p>
-      </main>
-
-    </div> 
-  <script type="module" src="./admin.js"></script>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand"><a href="#" class="group footer-logo-link"><img
+            src="images/logo.jpeg"
+            alt="Yanda Yarns Logo" class="footer-logo-image" /><span
+            class="group-hover:text-[color:var(--gjs-t-color-accent)] footer-logo-text">Yanda Yarns</span></a>
+        <p class="footer-about">Handcrafted crochet pieces made with care, creativity, and attention to detail. 
+          Designed to bring warmth, texture, and timeless charm to your everyday style.</p>
+      </div>
+    </div>
+    <div class="footer-bottom"><span class="footer-copyright">© 2026 Yanda Yarns. All rights reserved.</span>
+    </div>
+  </footer>
   </body>
+  <style>
+    
+  </style>
+</body>
 </html>

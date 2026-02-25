@@ -3,7 +3,7 @@
 
 <head>
   <a href="index.html">
-    <title>MD Elegance - Own your moment</title>
+    <title>Yanda Yarns - Shop</title>
   </a>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,35 +13,86 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./shop.css">
   <script type="module" src="firebaseauth.js"></script>
-  <script src="./script.js"></script>
+  
 </head>
 
 <body class="gjs-t-body body-wrapper">
-  <div id="header"></div>
-
-    <section class="dresses-section">
-      <div id="dressesContainer"></div>
-    </section>
-    <div id="footer"></div>
+  <header class="header">
+    <div class="header-container"><a href="index.html" class="group header-logo-link">
+        <img src="images/logo.jpeg" alt="Yanda Yarns Logo" class="header-logo-image" />
+        <span class="group-hover:text-[color:var(--gjs-t-color-accent)] header-logo-text">Yanda Yarns</span></a>
+      
+      <div class="header-actions">
+        <div class="search-wrapper"><input type="text" placeholder="Search luxury designs" aria-label="Search"
+            class="search-input" /><a href="#">
+            <img src="https://api.iconify.design/lucide-search.svg?color=%23e5e7eb" alt="Search Icon"
+              class="search-icon" /></div>
+        <span id="userGreeting"></span>
+        <a href="#" class="account-link"><img src="images/user icon.svg"
+            alt="User Icon" class="account-icon" id="userIcon" /></a>
+        <button id="logoutBtn">Sign Out</button>
+      </div><span class="account-text">Account</span>
+      <button type="button" class="wishlist-button" id="wishlistIcon"><img
+          src="images/wishlist icon.svg" alt="Wishlist Icon"
+          class="wishlist-icon" /><span class="cart-text">
+      <button type="button" class="cart-button" id="cartIcon"><img
+          src="images/cart icon.svg" alt="Cart Icon"
+          class="cart-icon" /><span class="cart-text">Cart</span><span class="cart-badge"
+          id="cartCount">0</span></button><button type="button" aria-label="Open menu" id="menuToggle"
+        class="mobile-menu-button"><img src="https://api.iconify.design/lucide-menu.svg?color=%23e5e7eb" alt="Menu Icon"
+          class="menu-icon" /></button>
     
-    
-    
-    <div id="modal" class="modal hidden">
-      <div class="modal-content">
-        <span id="closeBtn">&times;</span>
-        <h2 id="modalTitle">Login</h2>
-        <input type="email" id="authEmail" placeholder="Email">
-        <input type="password" id="authPassword" placeholder="Password">
-        <button id="authButton">Login</button>
-
-        <p id="toggleText">
-          Don't have an account?
-          <a href="#" id="signUp">Signup</a>
-        </p>
-      </div>
     </div>
-
+    <div class="nav-container">
+      <nav class="header-navigation">
+        <a href="#" class="gjs-t-link nav-link">Home</a>
+        <div class="nav-link dropdown" id="shopDropdown">
+          <a href="shop.html" class="gjs-t-link nav-link" id="shopLink">Shop</a>
+          <div class="dropdown-content" id="shopDropdownContent">
+            <a href="shop.html">All</a>
+            <a href="shop.html?category=clothing">Clothing</a>
+            <a href="shop.html?category=hats">Hats</a>
+            <a href="shop.html?category=bags">Bags</a>
+            <a href="shop.html?category=accessories">Accessories</a>
+          </div>
+        </div>
+        <a href="#" class="gjs-t-link nav-link">Request</a>
+        <a href="#" class="gjs-t-link nav-link">About Us</a>
+      </nav>
+      
+    </div>
+    </div>
+    <div id="mobileMenu" class="mobile-menu-panel">
+      <div class="mobile-menu-container"><a href="#" class="gjs-t-link mobile-nav-link">Men</a><a href="#"
+          class="gjs-t-link mobile-nav-link">Women</a><a href="#" class="gjs-t-link mobile-nav-link">Accessories</a><a
+          href="#" class="gjs-t-link mobile-nav-link">Sale</a></div>
+    </div>
+  </header>
+  <div class="shop-layout" style="display: flex; align-items: flex-start;">
+    <aside class="filters">
+      <h3>Filter By Category</h3>
+      <label><input type="checkbox" value="clothing"> Clothing</label>
+      <label><input type="checkbox" value="hats"> Hats</label>
+      <label><input type="checkbox" value="bags"> Bags</label>
+      <label><input type="checkbox" value="accessories"> Accessories</label>
+      <button id="applyFiltersBtn" class="gjs-t-button">Apply Filters</button>
+    </aside>
+    <section id="shop-products-section" style="flex:1; padding-left:2rem;">
+      <div id="shop-products-grid" class="product-grid"></div>
+    </section>
+  </div>
+<script src="./script.js" type="module"></script>
+<script type="module">
+  import { loadProducts } from './script.js';
+  document.addEventListener('DOMContentLoaded', () => {
+    const grid = document.getElementById('shop-products-grid');
+    if (grid && typeof loadProducts === 'function') {
+      loadProducts(grid);
+    }
+  });
+</script>
 </body>
 
 </html>

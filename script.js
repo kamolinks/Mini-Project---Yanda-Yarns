@@ -6,6 +6,10 @@ import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+  // Log current user on page load
+  if (typeof auth !== "undefined") {
+    console.log("Current user on load:", auth.currentUser);
+  }
    
   let mode = 'login'; // Default mode is login
   const modal = document.getElementById("modal");
@@ -60,7 +64,16 @@ document.addEventListener('DOMContentLoaded', function() {
   if (accountLink) {
     accountLink.addEventListener("click", (e) => {
       e.preventDefault();
+      if (typeof auth !== "undefined") {
+        console.log("Current user on icon click:", auth.currentUser);
+      }
+      // Only show modal if user is not logged in
+      if (typeof auth !== "undefined" && auth.currentUser) {
+        // Optionally show account info or do nothing
+        return;
+      }
       if (modal) {
+        modal.classList.remove("hidden");
         modal.style.display = "flex";
       }
     });
@@ -212,13 +225,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
 
-  document.getElementById("userIcon").addEventListener("click", (e) => {
-    e.preventDefault();
-    if (modal) {
-      modal.style.display = "flex";
-    }
-  });
-
     //Show user cartCount when logged in
     async function loadUserCart() {
       if (!auth.currentUser) {
@@ -290,10 +296,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   loadProducts(document.querySelector("#best-sellers-container"), 
-  (product) => product["top-seller"] === true);
+  (product) => product["topSeller"] === true);
 
   loadProducts(document.querySelector(".on-sale-container .product-grid"), 
-  (product) => product["on-sale"] === true);
+  (product) => product["onSale"] === true);
+
+  loadProducts(document.querySelector("#shop-products-grid"),)
 
   //add to cart button functionality
   document.addEventListener("click", async (event) => {
