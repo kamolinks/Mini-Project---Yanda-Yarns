@@ -2539,82 +2539,61 @@ video {
   color: #222;
 }
 
-@media (max-width: 992px) {
-  .search-wrapper {
-    width: 14rem;
+
+/* responsive design */
+/* header */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 15px 20px;
+  }
+  .search-input {
+    width:140px;
   }
 
-  .account-text {
-    display: inline;
+  .header-navigation {
+    flex-direction: column;
+    align-items: center;
+    display: none
   }
 
-  .cart-text {
-    display: inline;
+  .header-navigation.active {
+    display: flex;
   }
 
   .mobile-menu-button {
-    display: inline-flex;
-  }
-
-  .mobile-menu-panel {
     display: block;
+    background: none;
+    border: none;
   }
 
-  .product-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .cart-button {
+    order:2;
   }
 
-  .offers-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
 
-  .product-detail-container {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
+  .search-wrapper{
+    width:100%;
+    margin-top:10px;
   }
 
-  .checkout-container {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
+  .search-input {
+    width:100%;
   }
 
-  .footer-container {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+.account-dropdown {
+    position: relative;
   }
 
-  .quick-view-content {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
+  .account-btn{
+    background: none;
+    border: none;
+    cursor: pointer;
   }
 
-  .size-chart-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
 
-@media (max-width: 480px) {
-  .search-wrapper {
-    width: 11rem;
-  }
-
-  .hero-slider-frame {
-    height: 360px;
-  }
-
-  .product-grid {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-  }
-
-  .offers-grid {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-  }
-
-  .payment-options {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-  }
-
-  .footer-container {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-  }
-
-  .size-chart-grid {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-  }
 }

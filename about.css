@@ -1,3 +1,36 @@
+/* Flexbox layout for about page */
+.about-flex-wrapper {
+    display: flex;
+    gap: 2.5rem;
+    align-items: flex-start;
+}
+.about-picture {
+    flex: 1 1 320px;
+    max-width: 350px;
+    display: flex;
+    align-items: flex-start;
+}
+.about-picture img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    object-fit: cover;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.about-content {
+    flex: 2 1 0;
+    display: flex;
+    flex-direction: column;
+}
+@media (max-width: 900px) {
+    .about-flex-wrapper {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .about-picture {
+        max-width: 100%;
+    }
+}
 body {
     font-family: 'Inter', Arial, sans-serif;
     background: whitesmoke;
@@ -7,16 +40,28 @@ body {
 .about-container {
     max-width: 800px;
     margin: 60px auto 0 auto;
-    background: #fff;
+    background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 2px 16px rgba(0,0,0,0.07);
     padding: 2.5rem 2rem;
 }
+
+   
+.about-section h3 {
+    font-size: 1.5rem;
+    color: #d4af37;
+    margin-bottom: 1rem;
+    font-weight: 600;}
+
+
+
 .about-title {
     font-size: 2.5rem;
+    font-family: 'Playfair Display', serif;
     font-weight: 700;
     margin-bottom: 0.5rem;
-    color: #2d3748;
+    color: #d4af37;
+    background-color: #fff;
     letter-spacing: -1px;
 }
 .about-subtitle {
@@ -26,6 +71,7 @@ body {
 }
 .about-section {
     margin-bottom: 2rem;
+    margin-top: 2rem;
 }
 .about-section:last-child {
     margin-bottom: 0;

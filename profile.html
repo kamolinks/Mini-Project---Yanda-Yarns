@@ -9,6 +9,46 @@
   <script type="module" src="firebaseauth.js"></script>
 </head>
 <body>
+  <header class="header">
+    <div class="header-container"><a href="" class="group header-logo-link">
+        <img src="images/logo.jpeg" alt="Yanda Yarns Logo" class="header-logo-image" />
+        <span class="group-hover:text-[color:var(--gjs-t-color-accent)] header-logo-text">Yanda Yarns</span></a>
+      
+      <div class="header-actions">
+        <div class="search-wrapper"><input type="text" placeholder="Search crochet items" aria-label="Search"
+            class="search-input" /><a href="#">
+            <img src="https://api.iconify.design/lucide-search.svg?color=%23e5e7eb" alt="Search Icon"
+              class="search-icon" /></div>
+        <span id="userGreeting"></span>
+        <a href="#" class="account-link"><img src="images/user icon.svg"
+            alt="User Icon" class="account-icon" id="userIcon" /></a>
+        <button id="logoutBtn">Sign Out</button>
+      </div>
+      
+      <button type="button" class="cart-button" id="cartIcon"><img
+          src="images/cart icon.svg" alt="Cart Icon"
+          class="cart-icon" /><span class="cart-badge"
+          id="cartCount">0</span></button><button type="button" aria-label="Open menu" id="menuToggle"
+        class="mobile-menu-button"><img src="https://api.iconify.design/lucide-menu.svg?color=%23e5e7eb" alt="Menu Icon"
+          class="menu-icon" /></button>
+    
+    </div>
+    <div class="nav-container">
+      <nav class="header-navigation">
+        <a href="index.html" class="gjs-t-link nav-link">Home</a>
+        <div class="nav-link dropdown" id="shopDropdown">
+          <a href="shop.html" class="gjs-t-link nav-link" id="shopLink">Shop</a>
+          
+        </div>
+        <a href="request.html" class="gjs-t-link nav-link">Request</a>
+        <a href="about.html" class="gjs-t-link nav-link">About Us</a>
+      </nav>
+      
+    </div>
+    </div>
+    
+  </header>
+  
   <div class="profile-container">
     <div class="profile-header">
       <div class="profile-avatar" id="profileAvatar"><img src="images/avatar.jpg" alt="User Avatar"></div>

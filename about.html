@@ -8,37 +8,111 @@
     <link rel="stylesheet" href="about.css">
 </head>
 <body>
+    <header class="header">
+    <div class="header-container"><a href="" class="group header-logo-link">
+        <img src="images/logo.jpeg" alt="Yanda Yarns Logo" class="header-logo-image" />
+        <span class="group-hover:text-[color:var(--gjs-t-color-accent)] header-logo-text">Yanda Yarns</span></a>
+      
+      <div class="header-actions">
+        <div class="search-wrapper"><input type="text" placeholder="Search crochet items" aria-label="Search"
+            class="search-input" /><a href="#">
+            <img src="https://api.iconify.design/lucide-search.svg?color=%23e5e7eb" alt="Search Icon"
+              class="search-icon" /></div>
+        <span id="userGreeting"></span>
+        <a href="#" class="account-link"><img src="images/user icon.svg"
+            alt="User Icon" class="account-icon" id="userIcon" /></a>
+        <button id="logoutBtn">Sign Out</button>
+      </div>
+      
+      <button type="button" class="cart-button" id="cartIcon"><img
+          src="images/cart icon.svg" alt="Cart Icon"
+          class="cart-icon" /><span class="cart-badge"
+          id="cartCount">0</span></button><button type="button" aria-label="Open menu" id="menuToggle"
+        class="mobile-menu-button"><img src="https://api.iconify.design/lucide-menu.svg?color=%23e5e7eb" alt="Menu Icon"
+          class="menu-icon" /></button>
+    
+    </div>
+    <div class="nav-container">
+      <nav class="header-navigation">
+        <a href="index.html" class="gjs-t-link nav-link">Home</a>
+        <div class="nav-link dropdown" id="shopDropdown">
+          <a href="shop.html" class="gjs-t-link nav-link" id="shopLink">Shop</a>
+          
+        </div>
+        <a href="request.html" class="gjs-t-link nav-link">Request</a>
+        <a href="about.html" class="gjs-t-link nav-link">About Us</a>
+      </nav>
+      
+    </div>
+    </div>
+    
+  </header>
     <div class="about-container">
-        <div class="about-title">About Yanda Yarns</div>
-        <div class="about-subtitle">Crafting quality, comfort, and style for every story.</div>
-        <div class="about-section">
-            <p>Yanda Yarns is a proudly South African brand dedicated to bringing you unique, hand-crafted clothing and accessories. Our mission is to blend tradition with modern design, offering products that are as meaningful as they are beautiful.</p>
-        </div>
-        <div class="about-section">
-            <h3>Our Story</h3>
-            <p>Founded in 2026, Yanda Yarns began as a small passion project by Ayanda Fimbisayi. The business has grown into a community-driven enterprise. We believe in ethical sourcing, sustainable practices, and supporting local artisans. Every piece is made with care, creativity, and a touch of young originality.</p>
-        </div>
-        <div class="about-section">
-            <h3>Our Values</h3>
-            <div class="about-values">
-                <div class="value-card">
-                    <div class="value-title">Quality</div>
-                    <div class="value-desc">We use only the finest materials and craftsmanship in every product.</div>
-                </div>
-                <div class="value-card">
-                    <div class="value-title">Sustainability</div>
-                    <div class="value-desc">Our processes are eco-friendly and we prioritize ethical sourcing.</div>
-                </div>
-                <div class="value-card">
-                    <div class="value-title">Community</div>
-                    <div class="value-desc">We support local artisans and give back to our community.</div>
-                </div>
-                <div class="value-card">
-                    <div class="value-title">Creativity</div>
-                    <div class="value-desc">Every design is inspired by culture, nature, and innovation.</div>
-                </div>
+        <div class="about-flex-wrapper">
+          <div class="about-picture">
+            <img src="images/Flowers.jpg" alt="About Yanda Yarns" id="picture">
+          </div>
+          <div class="about-content">
+            <div class="about-title">About Yanda Yarns</div>
+            <div class="about-subtitle">Crafting quality, comfort, and style for every story.</div>
+            <div class="about-section">
+              <p>Yanda Yarns is a proudly South African brand dedicated to bringing you unique, hand-crafted clothing and accessories. Our mission is to blend tradition with modern design, offering products that are as meaningful as they are beautiful.</p>
+            </div>
+            <div class="about-section">
+              <h3>Our Story</h3>
+              <p>Founded in 2025, Yanda Yarns began as a small passion project by Ayanda Fimbisayi. The business has grown into a community-driven enterprise. We believe in ethical sourcing, sustainable practices, and supporting local artisans. Every piece is made with care, creativity, and a touch of young originality.</p>
             </div>
         </div>
+        
+        </div>
+        <div class="about-section">
+              <h3>Our Values</h3>
+              <div class="about-values">
+                <div class="value-card">
+                  <div class="value-title">Quality</div>
+                  <div class="value-desc">We use only the finest materials and craftsmanship in every product.</div>
+                </div>
+                <div class="value-card">
+                  <div class="value-title">Sustainability</div>
+                  <div class="value-desc">Our processes are eco-friendly and we prioritize ethical sourcing.</div>
+                </div>
+                <div class="value-card">
+                  <div class="value-title">Community</div>
+                  <div class="value-desc">We support local artisans and give back to our community.</div>
+                </div>
+                <div class="value-card">
+                  <div class="value-title">Creativity</div>
+                  <div class="value-desc">Every design is inspired by culture, nature, and innovation.</div>
+                </div>
+              </div>
+            </div>
     </div>
+
+    <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeBtn">&times;</span>
+      <h2 id="modalTitle">Login</h2>
+      <input type="text" id="authName" placeholder="Name" style="display:none;">
+      <input type="email" id="authEmail" placeholder="Email">
+      <input type="password" id="authPassword" placeholder="Password">
+      <button id="authButton">Login</button>
+
+      <p id="toggleText">
+        Don't have an account?
+        <a href="#" id="signUp">Signup</a>
+      </p>
+    </div>
+  </div>
+
+  <div id="cartModal" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeCartBtn">&times;</span>
+      <h2>Your Cart</h2>
+      <div id="cartItems"></div>
+      <h3>Total: R<span id="cartTotal">0</span></h3>
+      <button id="goToCheckout">Go To Checkout</button>
+    </div>
+  </div>
+<script type="module" src="script.js"></script>
 </body>
 </html>

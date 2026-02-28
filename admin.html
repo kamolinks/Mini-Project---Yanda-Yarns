@@ -27,7 +27,7 @@
       <nav class="header-navigation">
         <a href="#" class="gjs-t-link nav-link active">Manage Products</a>
         <a href="#" class="gjs-t-link nav-link">Orders</a>
-        <a href="#" class="gjs-t-link nav-link">Customers</a>
+        <a href="#" class="gjs-t-link nav-link">Requests</a>
       </nav>
     </div>
   </header>
@@ -106,6 +106,50 @@
             </tbody>
           </table>
         </div>
+      </div>
+    </section>
+
+    <section class="admin-orders-section" style="display:none;">
+      <h2 class="gjs-t-h2 admin-section-heading">Manage Orders</h2>
+      <div class="admin-orders-list" id="adminOrdersList">
+        <table class="admin-orders-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Order ID</th>
+              <th>User ID</th>
+              <th>User Email</th>
+              <th>Product Image</th>
+              <th>Product Name</th>
+              <th>Total</th>
+              
+            </tr>
+          </thead>
+          <tbody id="adminOrdersTableBody">
+            
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="admin-requests-section" style="display:none;">
+      <h2 class="gjs-t-h2 admin-section-heading">Manage Requests</h2>
+      <div class="admin-requests-list" id="adminRequestsList">
+        <table class="admin-requests-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>User ID</th>
+              <th>User Email</th>
+              <th>Description</th>
+              
+              
+            </tr>
+          </thead>
+          <tbody id="adminRequestsTableBody">
+            
+          </tbody>
+        </table>
       </div>
     </section>
   </main>

@@ -1,8 +1,34 @@
-import { getProducts } from "../data/firebaseauth.js";
-
+import { getProducts } from "./firebaseauth.js";
 
 // Load products and populate table
 document.addEventListener('DOMContentLoaded', async function() {
+      // Toggle between product, orders, and requests sections
+      const navLinks = document.querySelectorAll('.header-navigation .nav-link');
+      const adminSection = document.querySelector('.admin-section');
+      const adminOrdersSection = document.querySelector('.admin-orders-section');
+      const adminRequestsSection = document.querySelector('.admin-requests-section');
+      if (navLinks.length >= 3 && adminSection && adminOrdersSection && adminRequestsSection) {
+        navLinks[0].addEventListener('click', function(e) {
+          e.preventDefault();
+          adminSection.style.display = 'block';
+          adminOrdersSection.style.display = 'none';
+          adminRequestsSection.style.display = 'none';
+        });
+        navLinks[1].addEventListener('click', function(e) {
+          e.preventDefault();
+          adminSection.style.display = 'none';
+          adminOrdersSection.style.display = 'block';
+          adminRequestsSection.style.display = 'none';
+          loadAdminOrders();
+        });
+        navLinks[2].addEventListener('click', function(e) {
+          e.preventDefault();
+          adminSection.style.display = 'none';
+          adminOrdersSection.style.display = 'none';
+          adminRequestsSection.style.display = 'block';
+          // Optionally call loadAdminRequests();
+        });
+      }
     // Dynamically populate image dropdown
     const imageFilenames = [
       "Beach Hat.jpg","Blue Shrug.jpg","Brown Square Hat.jpg","Brown Vest.jpg","Flower Keychain Set.jpg", 
@@ -261,7 +287,118 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
   }
 
-});
+  //load admin orders
+  async function loadAdminOrders() {
+    const ordersTableBody = document.getElementById("adminOrdersTableBody");
+    if (!ordersTableBody) return;
+    ordersTableBody.innerHTML = "";
+    try {
+      const db = window.db;
+      const { getDocs, collection } = await import("https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js");
+      const ordersSnapshot = await getDocs(collection(db, "orders"));
+      ordersSnapshot.forEach(doc => {
+        const order = doc.data();
+        const orderId = doc.id;
+        const userId = order.userId || "";
+        const userEmail = order.userEmail || "";
+        const orderDate = order.Timestamp && typeof order.Timestamp.toDate === "function"
+          ? order.Timestamp.toDate().toLocaleDateString()
+          : "Unknown date";
+        const total = order.total !== undefined ? order.total : "";
+        // If multiple items, show first product image/name, or list all
+        let productImage = "";
+        let productName = "";
+        if (order.items && order.items.length > 0) {
+          productImage = order.items[0].product.imageUrl ? `<img src='${order.items[0].product.imageUrl}' alt='Product Image' style='max-width:60px;max-height:60px;border-radius:8px;object-fit:cover;' />` : "";
+          productName = order.items.map(item => item.product.name).join(", ");
+        }
+        // Truncate IDs to first 6 chars, show full on click
+        const truncatedOrderId = orderId.length > 6 ? orderId.slice(0,6) + "..." : orderId;
+        const truncatedUserId = userId.length > 6 ? userId.slice(0,6) + "..." : userId;
+        ordersTableBody.innerHTML += `
+          <tr>
+            <td>${orderDate}</td>
+            <td class='truncated-id' data-fullid='${orderId}'>${truncatedOrderId}</td>
+            <td class='truncated-id' data-fullid='${userId}'>${truncatedUserId}</td>
+            <td>${userEmail}</td>
+            <td>${productImage}</td>
+            <td>${productName}</td>
+            <td>${total}</td>
+          </tr>
+        `;
+      });
+      // Add click handler to show full ID
+      ordersTableBody.querySelectorAll('.truncated-id').forEach(cell => {
+        cell.style.cursor = 'pointer';
+        cell.title = 'Click to view full ID';
+        cell.onclick = function() {
+          alert('Full ID: ' + this.getAttribute('data-fullid'));
+        };
+      });
+    } catch (error) {
+      ordersTableBody.innerHTML = `<tr><td colspan='7' style='color:#e53e3e;padding:1rem;'>Error loading orders.</td></tr>`;
+      console.error("Error loading admin orders:", error);
+    }
+  }
 
-//logic for the dashboard 
+  //load admin requests
+  async function loadAdminRequests() {
+    const requestsTableBody = document.getElementById("adminRequestsTableBody");
+    if (!requestsTableBody) return;
+    requestsTableBody.innerHTML = "";
+    try {
+      const db = window.db;
+      const { getDocs, collection } = await import("https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js");
+      const requestsSnapshot = await getDocs(collection(db, "requests"));
+      requestsSnapshot.forEach(doc => {
+        const request = doc.data();
+        const userId = request.userId || "";
+        const userEmail = request.userEmail || "";
+        const description = request.description || "";
+        const requestDate = request.createdAt && typeof request.createdAt.toDate === "function"
+          ? request.createdAt.toDate().toLocaleDateString()
+          : "Unknown date";
+        // Truncate userId for display
+        const truncatedUserId = userId.length > 6 ? userId.slice(0,6) + "..." : userId;
+        requestsTableBody.innerHTML += `
+          <tr>
+            <td>${requestDate}</td>
+            <td class='truncated-id' data-fullid='${userId}'>${truncatedUserId}</td>
+            <td>${userEmail}</td>
+            <td>${description}</td>
+          </tr>
+        `;
+      });
+      // Add click handler to show full userId
+      requestsTableBody.querySelectorAll('.truncated-id').forEach(cell => {
+        cell.style.cursor = 'pointer';
+        cell.title = 'Click to view full ID';
+        cell.onclick = function() {
+          alert('Full ID: ' + this.getAttribute('data-fullid'));
+        };
+      });
+    } catch (error) {
+      requestsTableBody.innerHTML = `<tr><td colspan='4' style='color:#e53e3e;padding:1rem;'>Error loading requests.</td></tr>`;
+      console.error("Error loading admin requests:", error);
+    }
+  }
+
+  // Call loadAdminOrders when orders section is shown
+
+  if (adminSection && adminOrdersSection) {
+    adminSection.style.display = 'none';
+    adminOrdersSection.style.display = 'block';
+    loadAdminOrders();
+  }
+
+  // Call loadAdminRequests when requests section is shown
+  if (adminSection && adminOrdersSection && adminRequestsSection) {
+    adminSection.style.display = 'none';
+    adminOrdersSection.style.display = 'none';
+    adminRequestsSection.style.display = 'block';
+    loadAdminRequests();
+  }
+
+  //logic for the dashboard
+});
 
