@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "yandayarns",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
