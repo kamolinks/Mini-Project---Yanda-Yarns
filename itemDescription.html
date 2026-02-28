@@ -2,43 +2,56 @@
 <html lang="en">
 
 <head>
-  <a href="index.html">
-    <title>MD Elegance - Own your moment</title>
-  </a>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="index,follow">
-  <meta name="generator" content="GrapesJS Studio">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="./style.css">
-  <script type="module" src="firebaseauth.js"></script>
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yanda Yarns - Product Description</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="itemDescription.css">
+    <script type="module" src="firebaseauth.js"></script>
 </head>
 
-<body class="gjs-t-body body-wrapper">
-  <header class="header"></header>
-
-    <p> Product descriptions will be loaded on this page</p>
-    
-    
-    
-    <div id="modal" class="modal hidden">
-      <div class="modal-content">
-        <span id="closeBtn">&times;</span>
-        <h2 id="modalTitle">Login</h2>
-        <input type="email" id="authEmail" placeholder="Email">
-        <input type="password" id="authPassword" placeholder="Password">
-        <button id="authButton">Login</button>
-
-        <p id="toggleText">
-          Don't have an account?
-          <a href="#" id="signUp">Signup</a>
-        </p>
-      </div>
-    </div>
-    <script src="./script.js" type="module"></script>
+<body>
+    <section class="product-detail-section">
+        <div class="product-detail-container">
+          <div class="product-detail-image-container"><img src="" alt="Product Image" class="product-detail-image" /></div>  
+            <div class="product-detail-info">
+                <div class="title-and-price">
+                    <h3 class="product-detail-title"></h3>
+                    <div class="price-and-rating"><span class="product-detail-price"></span>
+                        
+                    </div>
+                </div>
+                <p class="product-detail-description"></p>
+                <div class="size-selector"><span class="size-label">Select Size</span>
+                    <div class="size-options"><label class="size-option"><input type="radio" name="size" value="XS"
+                                class="peer size-input" /><span
+                                class="peer-checked:text-black peer-checked:bg-[color:var(--gjs-t-color-accent)] size-text">XS</span></label><label
+                            class="size-option"><input type="radio" name="size" value="S"
+                                class="peer size-input" /><span
+                                class="peer-checked:text-black peer-checked:bg-[color:var(--gjs-t-color-accent)] size-text">S</span></label><label
+                            class="size-option"><input type="radio" name="size" value="M"
+                                class="peer size-input" /><span
+                                class="peer-checked:text-black peer-checked:bg-[color:var(--gjs-t-color-accent)] size-text">M</span></label><label
+                            class="size-option"><input type="radio" name="size" value="L"
+                                class="peer size-input" /><span
+                                class="peer-checked:text-black peer-checked:bg-[color:var(--gjs-t-color-accent)] size-text">L</span></label><label
+                            class="size-option"><input type="radio" name="size" value="XL"
+                                class="peer size-input" /><span
+                                class="peer-checked:text-black peer-checked:bg-[color:var(--gjs-t-color-accent)] size-text">XL</span></label>
+                    </div>
+                    
+                </div>
+                <div class="cart-actions"><button type="button" class="gjs-t-button add-to-cart-primary">
+                        Add to Cart
+                        <img src="images/cart icon.svg" alt="Cart Icon"
+                            class="cart-icon" /></button><button type="button" class="heart-icon"><img src="images/wishlist icon.svg" alt="Heart Icon"
+                            class="heart-icon" /></button></div>
+                
+                
+            </div>
+        </div>
+    </section>
+  <script type="module" src="itemDescription.js"></script>
 </body>
 
 </html>

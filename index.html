@@ -11,19 +11,19 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
     rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="style.css">
   <script type="module" src="firebaseauth.js"></script>
 
 </head>
 
 <body class="gjs-t-body body-wrapper">
   <header class="header">
-    <div class="header-container"><a href="index.html" class="group header-logo-link">
+    <div class="header-container"><a href="" class="group header-logo-link">
         <img src="images/logo.jpeg" alt="Yanda Yarns Logo" class="header-logo-image" />
         <span class="group-hover:text-[color:var(--gjs-t-color-accent)] header-logo-text">Yanda Yarns</span></a>
       
       <div class="header-actions">
-        <div class="search-wrapper"><input type="text" placeholder="Search luxury designs" aria-label="Search"
+        <div class="search-wrapper"><input type="text" placeholder="Search crochet items" aria-label="Search"
             class="search-input" /><a href="#">
             <img src="https://api.iconify.design/lucide-search.svg?color=%23e5e7eb" alt="Search Icon"
               class="search-icon" /></div>
@@ -31,13 +31,11 @@
         <a href="#" class="account-link"><img src="images/user icon.svg"
             alt="User Icon" class="account-icon" id="userIcon" /></a>
         <button id="logoutBtn">Sign Out</button>
-      </div><span class="account-text">Account</span>
-      <button type="button" class="wishlist-button" id="wishlistIcon"><img
-          src="images/wishlist icon.svg" alt="Wishlist Icon"
-          class="wishlist-icon" /><span class="cart-text">
+      </div>
+      
       <button type="button" class="cart-button" id="cartIcon"><img
           src="images/cart icon.svg" alt="Cart Icon"
-          class="cart-icon" /><span class="cart-text">Cart</span><span class="cart-badge"
+          class="cart-icon" /><span class="cart-badge"
           id="cartCount">0</span></button><button type="button" aria-label="Open menu" id="menuToggle"
         class="mobile-menu-button"><img src="https://api.iconify.design/lucide-menu.svg?color=%23e5e7eb" alt="Menu Icon"
           class="menu-icon" /></button>
@@ -45,28 +43,18 @@
     </div>
     <div class="nav-container">
       <nav class="header-navigation">
-        <a href="#" class="gjs-t-link nav-link">Home</a>
+        <a href="index.html" class="gjs-t-link nav-link">Home</a>
         <div class="nav-link dropdown" id="shopDropdown">
           <a href="shop.html" class="gjs-t-link nav-link" id="shopLink">Shop</a>
-          <div class="dropdown-content" id="shopDropdownContent">
-            <a href="shop.html">All</a>
-            <a href="shop.html?category=clothing">Clothing</a>
-            <a href="shop.html?category=hats">Hats</a>
-            <a href="shop.html?category=bags">Bags</a>
-            <a href="shop.html?category=accessories">Accessories</a>
-          </div>
+          
         </div>
-        <a href="#" class="gjs-t-link nav-link">Request</a>
-        <a href="#" class="gjs-t-link nav-link">About Us</a>
+        <a href="request.html" class="gjs-t-link nav-link">Request</a>
+        <a href="about.html" class="gjs-t-link nav-link">About Us</a>
       </nav>
       
     </div>
     </div>
-    <div id="mobileMenu" class="mobile-menu-panel">
-      <div class="mobile-menu-container"><a href="#" class="gjs-t-link mobile-nav-link">Men</a><a href="#"
-          class="gjs-t-link mobile-nav-link">Women</a><a href="#" class="gjs-t-link mobile-nav-link">Accessories</a><a
-          href="#" class="gjs-t-link mobile-nav-link">Sale</a></div>
-    </div>
+    
   </header>
   
   <section class="hero-slider">
@@ -191,59 +179,8 @@
           class="gjs-t-link footer-link">Terms</a><a href="#" class="gjs-t-link footer-link">Cookies</a></div>
     </div>
   </footer>
-  <div id="quickViewBackdrop" role="dialog" aria-modal="true" aria-labelledby="quickViewTitle"
-    class="quick-view-modal-backdrop">
-    <div class="quick-view-modal">
-      <div class="quick-view-header">
-        <h4 id="quickViewTitle" class="quick-view-title">Quick View</h4><button type="button"
-          aria-label="Close quick view" id="quickViewClose" class="quick-view-close"><img
-            src="https://api.iconify.design/lucide-x.svg?color=%23e5e7eb" alt="Close Icon"
-            class="close-icon" /></button>
-      </div>
-      <div class="quick-view-content">
-        <div class="quick-view-image-wrapper"><img
-            src="https://app.grapesjs.com/api/assets/random-image?query=%22luxury%20coat%22&amp;w=700&amp;h=600"
-            alt="Quick View Product" id="quickViewImage" class="quick-view-image" /></div>
-        <div class="quick-view-info">
-          <h5 id="quickViewName" class="quick-view-name">Emerald Double-Breasted Coat</h5><span id="quickViewPrice"
-            class="quick-view-price">$1,480</span>
-          <p class="quick-view-description">A sharply tailored coat with velvet collar and horn buttons.</p><button
-            type="button" class="gjs-t-button quick-view-add-cart">Add to Cart</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="sizeGuideBackdrop" role="dialog" aria-modal="true" aria-labelledby="sizeGuideTitle"
-    class="size-guide-modal-backdrop">
-    <div class="size-guide-modal">
-      <div class="size-guide-header">
-        <h4 id="sizeGuideTitle" class="size-guide-title">Size Guide</h4><button type="button"
-          aria-label="Close size guide" id="sizeGuideClose" class="size-guide-close"><img
-            src="https://api.iconify.design/lucide-x.svg?color=%23e5e7eb" alt="Close Icon"
-            class="close-icon" /></button>
-      </div>
-      <div class="size-guide-content">
-        <p class="size-guide-intro">Measure your bust, waist, and hips. Compare with the chart to select the best size.
-        </p>
-        <div class="size-chart-grid">
-          <div class="size-chart-item"><span class="size-chart-label">XS</span>
-            <p class="size-chart-detail">Bust 80-84 • Waist 62-66 • Hips 86-90</p>
-          </div>
-          <div class="size-chart-item"><span class="size-chart-label">S</span>
-            <p class="size-chart-detail">Bust 84-88 • Waist 66-70 • Hips 90-94</p>
-          </div>
-          <div class="size-chart-item"><span class="size-chart-label">M</span>
-            <p class="size-chart-detail">Bust 88-92 • Waist 70-74 • Hips 94-98</p>
-          </div>
-          <div class="size-chart-item"><span class="size-chart-label">L</span>
-            <p class="size-chart-detail">Bust 92-96 • Waist 74-78 • Hips 98-102</p>
-          </div>
-          <div class="size-chart-item"><span class="size-chart-label">XL</span>
-            <p class="size-chart-detail">Bust 96-100 • Waist 78-82 • Hips 102-106</p>
-          </div>
-        </div>
-      </div>
-    </div>
+  
+  
   </div>
   <script>
     (function () {
@@ -357,6 +294,7 @@
     <div class="modal-content">
       <span id="closeBtn">&times;</span>
       <h2 id="modalTitle">Login</h2>
+      <input type="text" id="authName" placeholder="Name" style="display:none;">
       <input type="email" id="authEmail" placeholder="Email">
       <input type="password" id="authPassword" placeholder="Password">
       <button id="authButton">Login</button>
@@ -378,8 +316,8 @@
     </div>
   </div>
 
-
-  <script type="module" src="./script.js"></script>
+<script type="module" src="script.js"></script>
+  
 </body>
 
 </html>

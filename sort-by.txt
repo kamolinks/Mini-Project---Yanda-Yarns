@@ -1,7 +1,0 @@
-<div class="sort-controls"><label for="sortSelect" class="sort-label">Sort by</label><select type="text"
-            id="sortSelect" class="sort-select">
-            <option>Featured</option>
-            <option>Price: Low to High</option>
-            <option>Price: High to Low</option>
-            <option>Newest</option>
-          </select></div>

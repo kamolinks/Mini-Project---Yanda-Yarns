@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile - Yanda Yarns</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="profile.css">
+  <script type="module" src="firebaseauth.js"></script>
+</head>
+<body>
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="profile-avatar" id="profileAvatar"><img src="images/avatar.jpg" alt="User Avatar"></div>
+      <div class="profile-name" id="profileName">User Name</div>
+    </div>
+    <div class="profile-section">
+      <h3>Order History</h3>
+      <ul class="order-list" id="orderList">
+        <!-- Orders will be loaded here -->
+      </ul>
+    </div>
+    <div class="profile-section">
+      <h3>Wishlist</h3>
+      <ul class="wishlist-list" id="wishlistList">
+        <!-- Wishlist items will be loaded here -->
+      </ul>
+    </div>
+  </div>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeBtn">&times;</span>
+      <h2 id="modalTitle">Login</h2>
+      <input type="text" id="authName" placeholder="Name" style="display:none;">
+      <input type="email" id="authEmail" placeholder="Email">
+      <input type="password" id="authPassword" placeholder="Password">
+      <button id="authButton">Login</button>
+
+      <p id="toggleText">
+        Don't have an account?
+        <a href="#" id="signUp">Signup</a>
+      </p>
+    </div>
+  </div>
+
+  <div id="cartModal" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeCartBtn" style="position:absolute;top:1rem;right:1.5rem;font-size:2rem;color:#888;cursor:pointer;z-index:10;">&times;</span>
+      <h2>Your Cart</h2>
+      <div id="cartItems"></div>
+      <h3>Total: R<span id="cartTotal">0</span></h3>
+      <button id="goToCheckout">Go To Checkout</button>
+    </div>
+  </div>
+  <script type="module" src="profile.js"></script>
+</body>
+</html>

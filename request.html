@@ -68,27 +68,18 @@
           href="#" class="gjs-t-link mobile-nav-link">Sale</a></div>
     </div>
   </header>
-  <div class="shop-layout" style="display: flex; align-items: flex-start;">
-    <aside class="filters">
-      <h3>Filter By Category</h3>
-      <label><input type="checkbox" value="clothing"> Clothing</label>
-      <label><input type="checkbox" value="hats"> Hats</label>
-      <label><input type="checkbox" value="bags"> Bags</label>
-      <label><input type="checkbox" value="accessories"> Accessories</label>
-      <label for="priceRange">Price Range:</label>
-      <select id="priceRange" style="width:100%;margin-bottom:1em;">
-        <option value="all">All</option>
-        <option value="0-200">R0 - R200</option>
-        <option value="200-500">R200 - R500</option>
-        <option value="500-1000">R500 - R1000</option>
-        <option value="1000+">R1000+</option>
-      </select>
-      <button id="applyFiltersBtn" class="gjs-t-button">Apply Filters</button>
-    </aside>
-    <section id="shop-products-section" style="flex:1; padding-left:2rem;">
-      <div id="shop-products-grid" class="product-grid"></div>
+
+  <main class="request-main">
+    <section class="request-section">
+      <h2>Custom Crochet Request</h2>
+      <form id="customRequestForm" enctype="multipart/form-data" style="max-width:400px;margin:2rem auto;padding:2rem;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+        <label for="requestDescription">Describe what you want made:</label>
+        <textarea id="requestDescription" name="description" rows="4" style="width:100%;margin-bottom:1rem;"></textarea>
+        <button type="submit" style="width:100%;padding:0.75rem 0;background:#e5e7eb;color:#333;border:none;border-radius:6px;font-weight:600;">Submit Request</button>
+      </form>
+      <div id="requestStatus" style="text-align:center;margin-top:1rem;"></div>
     </section>
-  </div>
+  </main>
 
   <div id="modal" class="modal hidden">
     <div class="modal-content">
@@ -108,18 +99,16 @@
 
   <div id="cartModal" class="modal hidden">
     <div class="modal-content">
-      <span id="closeCartBtn" style="position:absolute;top:1rem;right:1.5rem;font-size:2rem;color:#888;cursor:pointer;z-index:10;">&times;</span>
+      <span id="closeCartBtn">&times;</span>
       <h2>Your Cart</h2>
       <div id="cartItems"></div>
       <h3>Total: R<span id="cartTotal">0</span></h3>
       <button id="goToCheckout">Go To Checkout</button>
     </div>
   </div>
+  <script type="module" src="script.js"></script>
+  <script type="module" src="request.js"></script>
 
+  </body>
 
-<script type="module" src="firebaseauth.js"></script>
-<script type="module" src="script.js"></script>
-<script type="module" src="shop.js"></script>
-</body>
-
-</html>
+  </html>

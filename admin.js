@@ -1,4 +1,4 @@
-import { getProducts } from "./firebaseauth.js";
+import { getProducts } from "../data/firebaseauth.js";
 
 
 // Load products and populate table
@@ -262,3 +262,6 @@ document.addEventListener('DOMContentLoaded', async function() {
   }
 
 });
+
+//logic for the dashboard 
+

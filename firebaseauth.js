@@ -41,6 +41,7 @@ import { addDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-fires
   window.addDoc = addDoc;
   window.collection = collection;
   window.deleteDoc = deleteDoc;
+  window.saveUserCart = saveUserCart;
 
   //Save user cart to Firestore
   export async function saveUserCart(userId, cart) {
@@ -54,3 +55,5 @@ import { addDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-fires
       console.error("Error saving cart: ", error);
     }
   }
+
+  

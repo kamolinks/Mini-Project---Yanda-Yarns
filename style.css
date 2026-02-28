@@ -442,6 +442,30 @@ video {
   transition-duration: 150ms;
 }
 
+#searchButton {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: var(--gjs-t-color-accent);
+  color: #0b0b0b;
+  border: none;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 1rem;
+}
+
+#searchButton:hover {
+  background-color: rgb(250 204 21 / 1);
+}
+
+#searchButton:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 0px #fff, 0 0 0 calc(2px + 0px) rgb(59 130 246 / 0.5), 0 0 #0000;
+}
+
 .header-navigation {
   display: flex;
   align-items: center;
@@ -1559,33 +1583,22 @@ video {
   box-shadow: 0 0 0 0px #fff, 0 0 0 calc(2px + 0px) rgb(59 130 246 / 0.5), 0 0 #0000;
 }
 
-.wishlist-button {
-  display: inline-flex;
-  align-items: center;
-  padding-left: 20px;;
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 600;
-  border-width: 0;
-  color: rgb(229 229 229 / 1);
-  height:50px;
-}
 
-.wishlist-button:hover {
-  color: rgb(255 255 255 / 1);
-}
-
-.wishlist-button:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 0px #fff, 0 0 0 calc(2px + 0px) rgb(59 130 246 / 0.5), 0 0 #0000;
-}
 
 .heart-icon {
-  width: 1rem;
-  height: 1rem;
+  width: 2rem;
+  height: 2rem;
+  padding: 0.2rem;
+  border-radius: 50%;
+}
+
+.heart-icon:hover {
+  background-color: pink;
+}
+
+
+.heart-icon.selected {
+  background-color: pink !important;
 }
 
 .details-accordion {
@@ -2338,7 +2351,7 @@ video {
   font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   font-size: 1.125rem;
   line-height: 1.75rem;
-  color: rgb(255 255 255 / 1);
+  color: black;
 }
 
 .quick-view-price {
@@ -2349,7 +2362,7 @@ video {
 }
 
 .quick-view-description {
-  color: rgb(212 212 212 / 1);
+  color: black;
   font-size: 0.875rem;
   line-height: 1.25rem;
 }

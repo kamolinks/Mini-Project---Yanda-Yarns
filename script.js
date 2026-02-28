@@ -2,7 +2,11 @@
 // This script file contains the logic of the web app
 import { getProducts } from "./firebaseauth.js";
 import { saveUserCart } from "./firebaseauth.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+import { doc, getDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+ let cart = [];
+ let products = [];
+ let wishlist = [];
+ let orderHistory = [];
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -18,18 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const button = document.getElementById("authButton");
   const toggleText = document.getElementById("toggleText");
   const closeBtn = document.getElementById("closeBtn");
-  let cart = [];
-  let products = [];
-
-  //function to call header and footer
-  // async function loadComponents(id, file){
-  //   const response = await fetch(file);
-  //   const data = await response.text();
-  //   document.getElementById(id).innerHTML = data;
-  // }
-
-  // loadComponents("header", "header.html");
-  // loadComponents("footer", "footer.html");
+  
 
   // Quick view button functionality: redirect to item description page
   document.addEventListener("click", (event) => {
@@ -67,9 +60,9 @@ document.addEventListener('DOMContentLoaded', function() {
       if (typeof auth !== "undefined") {
         console.log("Current user on icon click:", auth.currentUser);
       }
-      // Only show modal if user is not logged in
+      // If user is logged in, go to profile page
       if (typeof auth !== "undefined" && auth.currentUser) {
-        // Optionally show account info or do nothing
+        window.location.href = "profile.html";
         return;
       }
       if (modal) {
@@ -99,16 +92,20 @@ document.addEventListener('DOMContentLoaded', function() {
   function toggleMode(e) {
     e.preventDefault();
 
+    const authNameInput = document.getElementById("authName");
+
     if (mode === 'login') {
       mode = 'signup';
       title.textContent = "Create Account";
       button.textContent = "Sign Up";
       toggleText.innerHTML = `Already have an account? <a href="#" id="signUp">Login</a>`;
+      if (authNameInput) authNameInput.style.display = "block";
     } else {
       mode = 'login';
       title.textContent = "Login";
       button.textContent = "Login";
       toggleText.innerHTML = `Don't have an account? <a href="#" id="signUp">Signup</a>`;
+      if (authNameInput) authNameInput.style.display = "none";
     }
 
     // Reattach event listener to the new link
@@ -142,6 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (authButton) {
     authButton.addEventListener('click', async () => {
+      
       const email = authEmail.value;
       const password = authPassword.value;
 
@@ -266,7 +264,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     //a function to load products from firestore and display them on the page
-
     async function loadProducts(container, filterFn=null) {
       try{
         const snapshot = await getProducts();
@@ -293,15 +290,18 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error("Error loading products:", error);
       }
     }
+    
 
-
+    
   loadProducts(document.querySelector("#best-sellers-container"), 
   (product) => product["topSeller"] === true);
 
   loadProducts(document.querySelector(".on-sale-container .product-grid"), 
   (product) => product["onSale"] === true);
 
-  loadProducts(document.querySelector("#shop-products-grid"),)
+  loadProducts(document.querySelector("#shop-products-section .product-grid"));
+
+    
 
   //add to cart button functionality
   document.addEventListener("click", async (event) => {
@@ -523,7 +523,93 @@ document.addEventListener('DOMContentLoaded', function() {
       updateCartItems();
     });
   }
+
+  // Wishlist heart icon toggle and add to wishlist
+  document.addEventListener("click", function(event) {
+    const heart = event.target.closest(".heart-icon");
+    if (heart) {
+      heart.classList.toggle("selected");
+      // Find the product card and get product id
+      const productCard = heart.closest(".product-card");
+      if (productCard) {
+        const productName = productCard.querySelector(".product-name")?.textContent;
+        const product = products.find(p => p.name === productName);
+        if (product) {
+          addToWishlist(product);
+        }
+      }
+    }
+  });
+
+  // Add product to user's wishlist in Firestore
+  async function addToWishlist(product) {
+    if (!auth.currentUser) {
+      modal.classList.remove("hidden");
+      return;
+    }
+    try {
+      const userRef = doc(db, "users", auth.currentUser.uid);
+      await updateDoc(userRef, {
+        wishlist: arrayUnion(product)
+      });
+      alert("Added to wishlist!");
+    } catch (error) {
+      alert("Could not add to wishlist: " + error.message);
+    }
+  };
+
+  //search functionality
+  const searchInput = document.querySelector(".search-input");
+  const searchButton = document.getElementById("searchButton");
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase();
+      const filteredProducts = products.filter(product => 
+        matchesSearchQuery(product, query)
+      );
+      const container = document.querySelector("#shop-products-section .product-grid");
+      if (container) {
+        container.innerHTML = "";
+        filteredProducts.forEach(product => {
+          container.innerHTML += createProductCard(product, product.id);
+        });
+      }
+    });
+  }
+
+  if (searchButton && searchInput) {
+    searchButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      const query = searchInput.value.trim();
+      if (query) {
+        window.location.href = `shop.html?search=${encodeURIComponent(query)}`;
+      } else {
+        window.location.href = "shop.html";
+      }
+    });
+  }
+
+  function matchesSearchQuery(product, query) {
+    if (!product) return false;
+
+    const words = query.split(" ");
+    return words.some(word =>
+      product.name.toLowerCase().includes(word) ||
+      product.description.toLowerCase().includes(word) ||
+      product.category.toLowerCase().includes(word) ||
+      (product.tags && product.tags.some(tag => tag.toLowerCase().includes(word)))
+    );
+}
+
+
 });
+
+
+
+
+
+
+
 
 
 

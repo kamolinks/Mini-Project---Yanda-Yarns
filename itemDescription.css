@@ -1,0 +1,27 @@
+/*
+  itemDescription.css
+  This CSS file will ensure all text on the item description page is black.
+*/
+
+body,
+.product-detail-section,
+.product-detail-container,
+.product-gallery,
+.product-detail-info,
+.title-and-price,
+.product-detail-title,
+.product-detail-price,
+.rating-stars,
+.product-detail-description,
+.size-selector,
+.size-label,
+.size-options,
+.size-option,
+.size-text {
+  color: #000 !important;
+}
+
+/* Also force all span, label, p, h3, etc. to black */
+span, label, p, h1, h2, h3, h4, h5, h6, div {
+  color: #000 !important;
+}
