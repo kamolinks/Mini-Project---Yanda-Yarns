@@ -24,14 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
+      const { serverTimestamp } = await import("https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js");
       await addDoc(collection(db, "requests"), {
         userId: auth.currentUser.uid,
         userEmail: auth.currentUser.email,
         description: description,
         status: "pending",
-        createdAt: new Date()
+        createdAt: serverTimestamp()
       });
-      statusDiv.textContent = "Request submitted successfully!";
+      statusDiv.textContent = "Request submitted successfully!\nWe will get back to you soon with a price.";
       this.reset();
     } catch (error) {
       statusDiv.textContent = "Error submitting request.";

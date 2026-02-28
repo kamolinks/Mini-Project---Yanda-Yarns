@@ -1,3 +1,30 @@
+/* Request bubble styles */
+.request-item {
+  background: #f3f4f6;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.request-item h3, .request-item div {
+  margin: 0;
+}
+.request-item .request-date {
+  font-weight: 600;
+  color: var(--gjs-t-color-accent, #eab308);
+  font-size: 1.1rem;
+}
+.request-item .request-description {
+  font-size: 1rem;
+  color: #333;
+}
+.request-item .request-status {
+  font-size: 0.95rem;
+  color: #555;
+}
 .body{
     font-family: 'Inter', Arial, sans-serif;
     background: whitesmoke;
@@ -77,6 +104,8 @@
       font-weight: 500;
       color: #374151;
     }
+
+    
     @media (max-width: 600px) {
       .profile-container { padding: 1.2rem 0.5rem; }
       .profile-header { flex-direction: column; gap: 0.5rem; align-items: flex-start; }

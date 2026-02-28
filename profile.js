@@ -1,6 +1,11 @@
 //This javascript file handles the logic of the user profile page, including displaying order history and wishlist items, and allowing users to remove items from their wishlist or reorder past purchases.
 
+
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 import { doc, getDoc, updateDoc, arrayUnion, query, collection, where, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+const auth = window.auth || getAuth();
+const db = window.db;
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,14 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.onAuthStateChanged(auth, async (user) => {
-        if (!user) {
-            alert("You must be logged in to view your profile.");
-            modal.classList.remove("hidden");
-            return;
-        }
-        await loadOrderHistory(user);
-        await loadWishlist(user);
-        
+      if (!user) {
+        alert("You must be logged in to view your profile.");
+        modal.classList.remove("hidden");
+        return;
+      }
+      await loadOrderHistory(user);
+      await loadWishlist(user);
+      await loadUserRequests(user);
     });
 
     const profileName = document.getElementById("profileName");
@@ -44,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
       updateProfileName(user);
       await loadOrderHistory(user);
       await loadWishlist(user);
+    
     });
 
     // Function to load order history
@@ -88,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    //function to load wishlist items
     async function loadWishlist(user) {
         try {
             const userDoc = await getDoc(doc(db, "users", user.uid));
@@ -179,4 +186,46 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     });
+
+    //function to load user requests
+    async function loadUserRequests(user) {
+      try {
+        if (!user) return;
+
+        const requestList = document.getElementById("requestList");
+        requestList.innerHTML = "";
+
+        try {
+            const requestsQuery = query(collection(db, "requests"), where("userId", "==", user.uid));
+            const querySnapshot = await getDocs(requestsQuery);
+
+            if (querySnapshot.empty) {
+                requestList.innerHTML = '<li style="color:#888;padding:1rem;">No requests submitted yet.</li>';
+                return;
+            }
+
+            querySnapshot.forEach(doc => {
+              const request = doc.data();
+              const requestDiv = document.createElement("li");
+              requestDiv.classList.add("request-item");              
+              let requestDate = "Unknown date";
+              if (request.createdAt && typeof request.createdAt.toDate === "function") {
+                requestDate = request.createdAt.toDate().toLocaleDateString();
+              }
+              requestDiv.innerHTML = `
+                <div style="font-weight:600;color:var(--gjs-t-color-accent);font-size:1.1rem;">Request on ${requestDate}</div>
+                <div style="font-size:1rem;color:#333;">${request.description}</div>
+                <div style="font-size:0.95rem;color:#555;">Status: <strong>${request.status}</strong></div>
+              `;
+              requestList.appendChild(requestDiv);
+            });
+        } catch (error) {
+            requestList.innerHTML = '<li style="color:#e53e3e;padding:1rem;">Error loading requests.</li>';
+            console.error("Error loading user requests: ", error);
+        }
+      } catch (error) {
+        console.error("Error loading user requests: ", error);
+      }
+    }
+
 });

@@ -1,0 +1,34 @@
+/* Center the request page heading and style it to match the logo text */
+.request-section h2 {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  color: var(--gjs-t-color-accent);
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.request-section button[type="submit"] {
+  background-color: var(--gjs-t-color-accent) !important;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.75rem 0;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+.request-section button[type="submit"]:hover,
+.request-section button[type="submit"]:focus {
+  background-color: rgb(250 204 21 / 1);
+}
+
+#requestStatus {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1rem;
+  color: green;
+  white-space: pre-line; /* Preserve newlines in status messages */
+}
