@@ -2758,6 +2758,11 @@ video {
     display:none;
   }
 
+  .nav-container .nav-links{
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
   .cart-button-mobile{
     display:flex;
   }
