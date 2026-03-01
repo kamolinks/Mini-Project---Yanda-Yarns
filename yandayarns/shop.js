@@ -64,4 +64,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     
+    if (applyBtn && grid && typeof loadProducts === 'function') {
+      applyBtn.addEventListener('click', () => {
+        loadProducts(grid, combinedFilter);
+      });
+    }
 });
