@@ -1,9 +1,13 @@
+
 import { getProducts } from "./firebaseauth.js";
 import { saveUserCart } from "./firebaseauth.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-import { loadProducts } from "./script.js";
+import { loadProducts, createProductCard } from "./script.js";
 
-document.addEventListener('DOMContentLoaded', () => {
+// Make products array global
+window.products = [];
+
+document.addEventListener('DOMContentLoaded', async () => {
     const grid = document.getElementById('shop-products-grid');
     const applyBtn = document.getElementById('applyFiltersBtn');
     const priceSelect = document.getElementById('priceRange');
@@ -48,6 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     }
 
+    // Load products and store globally
+    window.products = await getProducts();
     if (grid && typeof loadProducts === 'function') {
       const searchTerm = getSearchQuery();
       if (searchTerm) {
@@ -57,12 +63,5 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Apply filter on button click
-    if (applyBtn) {
-      applyBtn.addEventListener('click', () => {
-        if (grid && typeof loadProducts === 'function') {
-          loadProducts(grid, combinedFilter);
-        }
-      });
-    }
-  });
+    
+});

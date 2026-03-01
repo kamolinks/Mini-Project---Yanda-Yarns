@@ -25,3 +25,20 @@ body,
 span, label, p, h1, h2, h3, h4, h5, h6, div {
   color: #000 !important;
 }
+
+@media (max-width: 768px) {
+  .product-detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .product-gallery {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .product-detail-info {
+    width: 100%;
+    margin-top: 0;
+  }
+}

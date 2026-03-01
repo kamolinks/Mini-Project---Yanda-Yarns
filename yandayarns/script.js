@@ -22,6 +22,20 @@ document.addEventListener('DOMContentLoaded', function() {
   const button = document.getElementById("authButton");
   const toggleText = document.getElementById("toggleText");
   const closeBtn = document.getElementById("closeBtn");
+  const cartLink = document.querySelector('.sidebar .nav-link[href=""]');
+  const sidebar = document.querySelector('.sidebar');
+  const cartModal = document.getElementById('cartModal');
+
+  if (cartLink && sidebar && cartModal) {
+    cartLink.addEventListener('click', function(e) {
+      if (window.innerWidth < 768) {
+        e.preventDefault();
+        sidebar.style.display = 'none';
+        cartModal.classList.remove('hidden');
+        cartModal.style.removeProperty('display');
+      }
+    });
+  }
   
 
   // Quick view button functionality: redirect to item description page
@@ -354,17 +368,19 @@ document.addEventListener('DOMContentLoaded', function() {
   //open cart when cart icon is clicked
 
   const cartIcon = document.getElementById("cartIcon");
-  const cartModal = document.getElementById("cartModal");
+
   const closeCartBtn = document.getElementById("closeCartBtn");
   console.log(cartIcon);
   console.log(cartModal);
   cartIcon.addEventListener("click", async () => {
     cartModal.classList.remove("hidden");
+    cartModal.style.removeProperty('display');
     await loadCart();
   });
 
   closeCartBtn.addEventListener("click", () => {
     cartModal.classList.add("hidden");
+    cartModal.style.removeProperty('display');
   });
 
   // Function to load cart items into the cart modal
@@ -560,13 +576,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
   //search functionality
   const searchInput = document.querySelector(".search-input");
+  const searchInputMobile = document.querySelector(".search-input-mobile");
   const searchButton = document.getElementById("searchButton");
-  if (searchInput) {
-    searchInput.addEventListener("input", () => {
-      const query = searchInput.value.toLowerCase();
-      const filteredProducts = products.filter(product => 
-        matchesSearchQuery(product, query)
-      );
+  if (searchInput || searchInputMobile) {
+    const handleSearchInput = (input) => {
+      input.addEventListener("input", () => {
+        const query = input.value.toLowerCase();
+        const filteredProducts = products.filter(product => 
+          matchesSearchQuery(product, query)
+        );
       const container = document.querySelector("#shop-products-section .product-grid");
       if (container) {
         container.innerHTML = "";
@@ -575,6 +593,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
       }
     });
+    }
+    handleSearchInput(searchInput);
+    handleSearchInput(searchInputMobile);
   }
 
   if (searchButton && searchInput) {
@@ -599,7 +620,9 @@ document.addEventListener('DOMContentLoaded', function() {
       product.category.toLowerCase().includes(word) ||
       (product.tags && product.tags.some(tag => tag.toLowerCase().includes(word)))
     );
-}
+  }
+
+
 
 
 });
