@@ -40,9 +40,7 @@
             alt="User Icon" class="account-icon" id="userIcon" />
           <button id="logoutBtn">Sign Out</button>
       </div><span class="account-text">Account</span></a>
-      <button type="button" class="wishlist-button" id="wishlistIcon"><img
-          src="images/wishlist icon.svg" alt="Wishlist Icon"
-          class="wishlist-icon" /><span class="cart-text">
+      
       <button type="button" class="cart-button" id="cartIcon"><img
           src="images/cart icon.svg" alt="Cart Icon"
           class="cart-icon" /><span class="cart-text">Cart</span><span class="cart-badge"
@@ -52,16 +50,53 @@
     </div>
     <div class="nav-container">
       <nav class="header-navigation">
-          <a href="#" class="gjs-t-link nav-link">Home</a><a href="women.html" class="gjs-t-link nav-link">Shop</a><a
-            href="#" class="gjs-t-link nav-link">Request</a><a href="#" class="gjs-t-link nav-link">About Us</a>
-        </nav>
+        <a href="index.html" class="hideOnMobile">Home</a>
+        <a href="shop.html" class="hideOnMobile" id="shopLink">Shop</a>
+        <a href="request.html" class="hideOnMobile">Request</a>
+        <a href="about.html" class="hideOnMobile">About Us</a>
+        
+        <button type="button" class="cart-button-mobile" id="cartIcon"><img
+          src="images/cart icon.svg" alt="Cart Icon"
+          class="cart-icon" /><span class="cart-badge-mobile"
+          id="cartCountMobile">0</span>
+        </button>
+
+        <button class="logout-mobile">
+          <img src="images/logout icon.svg" alt="Logout Icon" class="lock-icon" id="logoutIcon" />
+        </button>
+
+        <a href="#" onclick=showSidebar() class="menu-button"><img src="images/menu icon.svg" alt="Menu"></a>
+      </nav>
+
+      <nav class="sidebar">
+        <a href="#" onclick=hideSidebar()><img src="images/close icon.svg" alt="Close menu"></a>
+        <a href="index.html" class="gjs-t-link nav-link">Home</a>
+        <a href="shop.html" class="gjs-t-link nav-link" id="shopLink">Shop</a>
+        <a href="request.html" class="gjs-t-link nav-link">Request</a>
+        <a href="about.html" class="gjs-t-link nav-link">About Us</a>
+        <a href="profile.html" class="gjs-t-link nav-link" id="profileLink">Profile</a>
+        
+      </nav>
+
+      <script>
+        function showSidebar() {
+          const sidebar = document.querySelector('.sidebar');
+          if (sidebar) {
+            sidebar.style.display = 'flex';
+          }
+        }
+
+        function hideSidebar() {
+          const sidebar = document.querySelector('.sidebar');
+          if (sidebar) {
+            sidebar.style.display = 'none';
+          }
+        }
+      </script>
+      
     </div>
     </div>
-    <div id="mobileMenu" class="mobile-menu-panel">
-      <div class="mobile-menu-container"><a href="#" class="gjs-t-link mobile-nav-link">Men</a><a href="#"
-          class="gjs-t-link mobile-nav-link">Women</a><a href="#" class="gjs-t-link mobile-nav-link">Accessories</a><a
-          href="#" class="gjs-t-link mobile-nav-link">Sale</a></div>
-    </div>
+    
   </header>
 
 
@@ -69,6 +104,30 @@
       <div class="checkout-container">
         <div class="checkout-form" id="checkoutForm">
           <h3 class="checkout-title">Secure Checkout</h3>
+
+          <div class="checkout-summary">
+        
+          <h4 class="cart-summary-title">Order Summary</h4>
+          <div class="cart-items-scroll">
+            <div class="cart-items" id="cartItemsSummary"></div>
+          </div>
+          <div class="order-summary-footer">
+            <div class="order-summary-row">
+              <span class="order-summary-label">Subtotal</span>
+              <span class="subtotal-value" id="subTotal">R0</span>
+            </div>
+            <div class="order-summary-row">
+              <span class="order-summary-label">Delivery Fee</span>
+              <span class="delivery-fee-value" id="deliveryFee">R0</span>
+            </div>
+            <div class="order-summary-row">
+              <span class="order-summary-label">Total</span>
+              <span class="total-value" id="total">R0</span>
+            </div>
+          </div>
+        </div>
+
+
           <div class="address-fields">
             <div class="field-group">
               <label for="firstName" class="field-label">First Name</label>
@@ -108,27 +167,7 @@
             <img src="https://api.iconify.design/lucide-lock.svg?color=%230b0b0b" alt="Lock Icon"
               class="lock-icon" /></button>
         </div>
-        <aside class="cart-summary" id="orderSummary">
-          <h4 class="cart-summary-title">Order Summary</h4>
-          <div class="cart-items-scroll">
-            <div class="cart-items" id="cartItemsSummary"></div>
-          </div>
-          <div class="order-summary-footer">
-            <div class="order-summary-row">
-              <span class="order-summary-label">Subtotal</span>
-              <span class="subtotal-value" id="subTotal">R0</span>
-            </div>
-            <div class="order-summary-row">
-              <span class="order-summary-label">Delivery Fee</span>
-              <span class="delivery-fee-value" id="deliveryFee">R0</span>
-            </div>
-            <div class="order-summary-row">
-              <span class="order-summary-label">Total</span>
-              <span class="total-value" id="total">R0</span>
-            </div>
-          </div>
-        </aside>
-      </div>
+        
     </section>
 
     <script>
@@ -190,112 +229,7 @@
         
       </div>
     </div>
-    <script>
-      (function () {
-        var slidesWrapper = document.getElementById('slidesWrapper');
-        var slides = slidesWrapper ? slidesWrapper.children : [];
-        var current = 0;
-        function showSlide(index) {
-          for (var i = 0; i < slides.length; i++) {
-            slides[i].style.opacity = i === index ? '1' : '0';
-            slides[i].style.zIndex = i === index ? '1' : '0';
-          }
-          current = index;
-        }
-        function next() {
-          showSlide((current + 1) % slides.length);
-        }
-        function prev() {
-          showSlide((current - 1 + slides.length) % slides.length);
-        }
-        var nextBtn = document.getElementById('nextSlide');
-        var prevBtn = document.getElementById('prevSlide');
-        if (nextBtn) nextBtn.addEventListener('click', next);
-        if (prevBtn) prevBtn.addEventListener('click', prev);
-        var auto = setInterval(next, 6000);
-
-        var menuToggle = document.getElementById('menuToggle');
-        var mobileMenu = document.getElementById('mobileMenu');
-        if (menuToggle && mobileMenu) {
-          menuToggle.addEventListener('click', function () {
-            var visible = mobileMenu.classList.contains('hidden');
-            mobileMenu.classList.toggle('hidden', !visible);
-            mobileMenu.classList.toggle('block', visible);
-          });
-        }
-
-        var quickViewBackdrop = document.getElementById('quickViewBackdrop');
-        var quickViewClose = document.getElementById('quickViewClose');
-        var quickViewImage = document.getElementById('quickViewImage');
-        var quickViewName = document.getElementById('quickViewName');
-        var quickViewPrice = document.getElementById('quickViewPrice');
-        function openQuickView(img, name, price) {
-          if (quickViewImage) quickViewImage.src = img;
-          if (quickViewName) quickViewName.textContent = name;
-          if (quickViewPrice) quickViewPrice.textContent = price;
-          if (quickViewBackdrop) {
-            quickViewBackdrop.classList.remove('hidden');
-            quickViewBackdrop.classList.add('flex');
-          }
-        }
-        function closeQuickView() {
-          if (quickViewBackdrop) {
-            quickViewBackdrop.classList.add('hidden');
-            quickViewBackdrop.classList.remove('flex');
-          }
-        }
-        document.querySelectorAll('[data-quick-view]').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            var card = btn.closest('[data-gjs-name="Product Card"]');
-            var imgEl = card ? card.querySelector('[data-gjs-name="Product Image"]') : null;
-            var nameEl = card ? card.querySelector('[data-gjs-name="Product Name"]') : null;
-            var priceEl = card ? card.querySelector('[data-gjs-name="Product Price"]') : null;
-            openQuickView(imgEl ? imgEl.src : '', nameEl ? nameEl.textContent : 'Product', priceEl ? priceEl.textContent : '$0');
-          });
-        });
-        if (quickViewClose) quickViewClose.addEventListener('click', closeQuickView);
-        if (quickViewBackdrop) quickViewBackdrop.addEventListener('click', function (e) { if (e.target === quickViewBackdrop) closeQuickView(); });
-
-        var sizeGuideBackdrop = document.getElementById('sizeGuideBackdrop');
-        var sizeGuideOpen = document.getElementById('sizeGuideOpen');
-        var sizeGuideClose = document.getElementById('sizeGuideClose');
-        function openSizeGuide() {
-          if (sizeGuideBackdrop) {
-            sizeGuideBackdrop.classList.remove('hidden');
-            sizeGuideBackdrop.classList.add('flex');
-          }
-        }
-        function closeSizeGuide() {
-          if (sizeGuideBackdrop) {
-            sizeGuideBackdrop.classList.add('hidden');
-            sizeGuideBackdrop.classList.remove('flex');
-          }
-        }
-        if (sizeGuideOpen) sizeGuideOpen.addEventListener('click', openSizeGuide);
-        if (sizeGuideClose) sizeGuideClose.addEventListener('click', closeSizeGuide);
-        if (sizeGuideBackdrop) sizeGuideBackdrop.addEventListener('click', function (e) { if (e.target === sizeGuideBackdrop) closeSizeGuide(); });
-
-        var pdMainImage = document.getElementById('pdMainImage');
-        if (pdMainImage) {
-          pdMainImage.style.transition = 'transform 0.2s ease';
-          pdMainImage.addEventListener('mousemove', function (e) {
-            var rect = pdMainImage.getBoundingClientRect();
-            var x = ((e.clientX - rect.left) / rect.width - 0.5) * 4;
-            var y = ((e.clientY - rect.top) / rect.height - 0.5) * 4;
-            pdMainImage.style.transform = 'scale(1.08) translate(' + (-x * 5) + 'px,' + (-y * 5) + 'px)';
-          });
-          pdMainImage.addEventListener('mouseleave', function () {
-            pdMainImage.style.transform = 'scale(1) translate(0,0)';
-          });
-        }
-        document.querySelectorAll('[data-thumb]').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            var src = btn.getAttribute('data-thumb');
-            if (pdMainImage && src) pdMainImage.src = src;
-          });
-        });
-      })();
-    </script>
+    
     <div id="modal" class="modal hidden">
       <div class="modal-content">
         <span id="closeBtn">&times;</span>

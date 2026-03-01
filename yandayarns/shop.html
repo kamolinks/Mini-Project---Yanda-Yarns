@@ -45,13 +45,50 @@
     </div>
     <div class="nav-container">
       <nav class="header-navigation">
+        <a href="index.html" class="hideOnMobile">Home</a>
+        <a href="shop.html" class="hideOnMobile" id="shopLink">Shop</a>
+        <a href="request.html" class="hideOnMobile">Request</a>
+        <a href="about.html" class="hideOnMobile">About Us</a>
+        
+        <button type="button" class="cart-button-mobile" id="cartIcon"><img
+          src="images/cart icon.svg" alt="Cart Icon"
+          class="cart-icon" /><span class="cart-badge-mobile"
+          id="cartCountMobile">0</span>
+        </button>
+
+        <button class="logout-mobile">
+          <img src="images/logout icon.svg" alt="Logout Icon" class="lock-icon" id="logoutIcon" />
+        </button>
+
+        <a href="#" onclick=showSidebar() class="menu-button"><img src="images/menu icon.svg" alt="Menu"></a>
+      </nav>
+
+      <nav class="sidebar">
+        <a href="#" onclick=hideSidebar()><img src="images/close icon.svg" alt="Close menu"></a>
         <a href="index.html" class="gjs-t-link nav-link">Home</a>
-        <div class="nav-link dropdown" id="shopDropdown">
-          <a href="shop.html" class="gjs-t-link nav-link" id="shopLink">Shop</a>
-        </div>
+        <a href="shop.html" class="gjs-t-link nav-link" id="shopLink">Shop</a>
         <a href="request.html" class="gjs-t-link nav-link">Request</a>
         <a href="about.html" class="gjs-t-link nav-link">About Us</a>
-      </nav>   
+        <a href="profile.html" class="gjs-t-link nav-link" id="profileLink">Profile</a>
+        
+      </nav>
+
+      <script>
+        function showSidebar() {
+          const sidebar = document.querySelector('.sidebar');
+          if (sidebar) {
+            sidebar.style.display = 'flex';
+          }
+        }
+
+        function hideSidebar() {
+          const sidebar = document.querySelector('.sidebar');
+          if (sidebar) {
+            sidebar.style.display = 'none';
+          }
+        }
+      </script>
+      
     </div>
 
     <div class="search-wrapper-mobile"><input type="text" placeholder="Search crochet items" aria-label="Search"

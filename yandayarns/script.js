@@ -10,11 +10,20 @@ import { doc, getDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/fire
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-  // Log current user on page load
-  if (typeof auth !== "undefined") {
-    console.log("Current user on load:", auth.currentUser);
-  }
-   
+    // Mobile logout button functionality
+    const logoutMobileBtn = document.querySelector('.logout-mobile');
+    if (logoutMobileBtn) {
+      logoutMobileBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        try {
+          await signOut(auth);
+          alert('Signed out successfully!');
+          window.location.href = 'index.html';
+        } catch (error) {
+          alert('Error signing out: ' + error.message);
+        }
+      });
+    }
   let mode = 'login'; // Default mode is login
   const modal = document.getElementById("modal");
   const title = document.getElementById("modalTitle");
@@ -25,6 +34,23 @@ document.addEventListener('DOMContentLoaded', function() {
   const cartLink = document.querySelector('.sidebar .nav-link[href=""]');
   const sidebar = document.querySelector('.sidebar');
   const cartModal = document.getElementById('cartModal');
+
+  // Show cart modal on mobile when cart-button-mobile is clicked
+  const cartButtonMobile = document.querySelector('.cart-button-mobile');
+  if (cartButtonMobile && cartModal) {
+    cartButtonMobile.addEventListener('click', async function(e) {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        cartModal.classList.remove('hidden');
+        cartModal.style.removeProperty('display');
+        await loadCart();
+      }
+    });
+  }
+  // Log current user on page load
+  if (typeof auth !== "undefined") {
+    console.log("Current user on load:", auth.currentUser);
+  }
 
   if (cartLink && sidebar && cartModal) {
     cartLink.addEventListener('click', function(e) {
@@ -217,6 +243,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (logoutBtn) {
       logoutBtn.style.display = 'none';
     }
+    if (logoutMobileBtn) {
+      logoutMobileBtn.style.display = 'none';
+    }
   }
 
   // Add logout button click handler
@@ -347,10 +376,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Function to update cart count badge in the UI
   function updateCartItems() {
-    const cartCount = document.getElementById("cartCount");
-    if (!cartCount) return;
+    const cartCountDesktop = document.getElementById("cartCountDesktop");
+    const cartCountMobile = document.getElementById("cartCountMobile");
     const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-    cartCount.textContent = totalItems;
+    if (cartCountDesktop) cartCountDesktop.textContent = totalItems;
+    if (cartCountMobile) cartCountMobile.textContent = totalItems;
   }
 
   // Initialize cart count on page load

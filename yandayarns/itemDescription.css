@@ -1,3 +1,38 @@
+@media (min-width: 769px) {
+  .product-detail-container {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+  .product-detail-image-container {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+  .product-detail-info {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .cart-actions {
+    grid-column: 1;
+    grid-row: 2;
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+}
+/* Make product image smaller */
+.product-gallery img {
+  max-width: 200px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
 /*
   itemDescription.css
   This CSS file will ensure all text on the item description page is black.

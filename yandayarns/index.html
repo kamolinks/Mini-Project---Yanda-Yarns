@@ -36,7 +36,7 @@
       <button type="button" class="cart-button" id="cartIcon"><img
           src="images/cart icon.svg" alt="Cart Icon"
           class="cart-icon" /><span class="cart-badge"
-          id="cartCount">0</span></button><button type="button" aria-label="Open menu" id="menuToggle"
+          id="cartCountDesktop">0</span></button><button type="button" aria-label="Open menu" id="menuToggle"
         class="mobile-menu-button"><img src="https://api.iconify.design/lucide-menu.svg?color=%23e5e7eb" alt="Menu Icon"
           class="menu-icon" /></button>
     
@@ -47,6 +47,17 @@
         <a href="shop.html" class="hideOnMobile" id="shopLink">Shop</a>
         <a href="request.html" class="hideOnMobile">Request</a>
         <a href="about.html" class="hideOnMobile">About Us</a>
+        
+        <button type="button" class="cart-button-mobile" id="cartIcon"><img
+          src="images/cart icon.svg" alt="Cart Icon"
+          class="cart-icon" /><span class="cart-badge-mobile"
+          id="cartCountMobile">0</span>
+        </button>
+
+        <button class="logout-mobile">
+          <img src="images/logout icon.svg" alt="Logout Icon" class="lock-icon" id="logoutIcon" />
+        </button>
+
         <a href="#" onclick=showSidebar() class="menu-button"><img src="images/menu icon.svg" alt="Menu"></a>
       </nav>
 
@@ -57,7 +68,7 @@
         <a href="request.html" class="gjs-t-link nav-link">Request</a>
         <a href="about.html" class="gjs-t-link nav-link">About Us</a>
         <a href="profile.html" class="gjs-t-link nav-link" id="profileLink">Profile</a>
-        <a href="" class="gjs-t-link nav-link">Cart</a>
+        
       </nav>
 
       <script>
@@ -179,24 +190,8 @@
               src="https://api.iconify.design/lucide-twitter.svg?color=%23e5e7eb" alt="Twitter Icon"
               class="social-icon" /></a></div>
       </div>
-      <div class="footer-links-customer-service">
-        <h5 class="footer-heading">Customer Service</h5><a href="#" class="gjs-t-link footer-link">Contact Us</a><a
-          href="#" class="gjs-t-link footer-link">Shipping</a><a href="#" class="gjs-t-link footer-link">Returns</a><a
-          href="#" class="gjs-t-link footer-link">FAQs</a>
-      </div>
-      <div class="footer-links-about">
-        <h5 class="footer-heading">About Us</h5><a href="#" class="gjs-t-link footer-link">Our Story</a><a href="#"
-          class="gjs-t-link footer-link">Atelier</a><a href="#" class="gjs-t-link footer-link">Sustainability</a><a
-          href="#" class="gjs-t-link footer-link">Careers</a>
-      </div>
-      <div class="footer-newsletter">
-        <h5 class="footer-heading">Newsletter</h5>
-        <p class="newsletter-description">Join our private list for new collections and exclusive events.</p>
-        <form method="get" class="newsletter-form"><label for="newsletterEmail"
-            class="newsletter-label">Email</label><input type="email" id="newsletterEmail" placeholder="you@example.com"
-            class="newsletter-input" /><button type="submit" class="gjs-t-button newsletter-submit">Subscribe</button>
-        </form>
-      </div>
+      
+      
     </div>
     <div class="footer-bottom"><span class="footer-copyright">© 2026 Yanda Yarns. All rights reserved.</span>
       <div class="footer-legal-links"><a href="#" class="gjs-t-link footer-link">Privacy</a><a href="#"

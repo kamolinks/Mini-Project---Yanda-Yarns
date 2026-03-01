@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.onAuthStateChanged(auth, async (user) => {
       if (!user) {
-        alert("You must be logged in to view your profile.");
+        
         modal.classList.remove("hidden");
         return;
       }
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update profile name on auth state change
     window.onAuthStateChanged(auth, async (user) => {
       if (!user) {
-        alert("You must be logged in to view your profile.");
+        
         modal.classList.remove("hidden");
         return;
       }
