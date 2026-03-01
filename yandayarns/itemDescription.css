@@ -16,6 +16,7 @@
     grid-column: 1;
     grid-row: 1;
   }
+  
   .cart-actions {
     grid-column: 1;
     grid-row: 2;
@@ -75,6 +76,11 @@ span, label, p, h1, h2, h3, h4, h5, h6, div {
     width: 100%;
     margin-bottom: 1rem;
   }
+
+   .heart-icon {
+    display: block !important;
+  }
+
   .product-detail-info {
     width: 100%;
     margin-top: 0;
