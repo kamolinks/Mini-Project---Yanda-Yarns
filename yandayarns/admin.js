@@ -2,6 +2,19 @@ import { getProducts } from "./firebaseauth.js";
 
 // Load products and populate table
 document.addEventListener('DOMContentLoaded', async function() {
+        // Sign out button logic for admin page
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn && window.auth && window.signOut) {
+          logoutBtn.addEventListener('click', async function(e) {
+            e.preventDefault();
+            try {
+              await window.signOut(window.auth);
+              window.location.href = 'index.html';
+            } catch (error) {
+              alert('Error signing out: ' + error.message);
+            }
+          });
+        }
       // Toggle between product, orders, and requests sections
       const navLinks = document.querySelectorAll('.header-navigation .nav-link');
       const adminSection = document.querySelector('.admin-section');
@@ -300,7 +313,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         const order = doc.data();
         const orderId = doc.id;
         const userId = order.userId || "";
-        const userEmail = order.userEmail || "";
+        const userEmail = order.email || "";
         const orderDate = order.Timestamp && typeof order.Timestamp.toDate === "function"
           ? order.Timestamp.toDate().toLocaleDateString()
           : "Unknown date";

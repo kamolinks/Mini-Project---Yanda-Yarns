@@ -2634,7 +2634,7 @@ video {
 
 /* Logout Button Styling */
 #logoutBtn {
-  display: none;
+  display: inline-block;
   padding: 0.5rem 1rem;
   background-color: var(--gjs-t-color-accent);
   color: #0b0b0b;
