@@ -112,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             // Save locally 
             localStorage.setItem('cart', JSON.stringify(cart));
-            alert('Added to cart!');
         }
     });
 
@@ -120,6 +119,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.heart-icon').addEventListener('click', async () => {
         if (!loadedProduct) {
             alert('Product not loaded yet!');
+            return;
+        }
+        const auth = window.auth;
+        if (!auth || !auth.currentUser) {
+            // Show login modal if not logged in
+            const loginModal = document.getElementById('modal');
+            if (loginModal) {
+                loginModal.classList.remove('hidden');
+            } else {
+                alert('Please log in to add to wishlist!');
+            }
             return;
         }
         let wishlist = [];
@@ -133,32 +143,24 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!wishlist.find(item => item.id === loadedProduct.id)) {
             wishlist.push(loadedProduct);
         }
-
-        // Save wishlist to Firestore if user is logged in
-        const auth = window.auth;
-        if (auth && auth.currentUser) {
-            const userId = auth.currentUser.uid;
-            const db = window.db;
-            if (db && window.doc && window.updateDoc && window.arrayUnion) {
-                const userRef = window.doc(db, "users", userId);
-                try {
-                    await window.updateDoc(userRef, {
-                        wishlist: window.arrayUnion(loadedProduct)
-                    });
-                    alert('Added to wishlist!');
-                } catch (err) {
-                    console.error('Error saving wishlist to Firestore:', err);
-                    alert('Error saving wishlist!');
-                }
-            } else {
-                // Fallback to localStorage
-                localStorage.setItem('wishlist', JSON.stringify(wishlist));
-                alert('Added to wishlist!');
+        // Save wishlist to Firestore
+        const userId = auth.currentUser.uid;
+        const db = window.db;
+        if (db && window.doc && window.updateDoc && window.arrayUnion) {
+            const userRef = window.doc(db, "users", userId);
+            try {
+                await window.updateDoc(userRef, {
+                    wishlist: window.arrayUnion(loadedProduct)
+                });
+                
+            } catch (err) {
+                console.error('Error saving wishlist to Firestore:', err);
+                alert('Error saving wishlist!');
             }
         } else {
-            // Save locally
+            // Fallback to localStorage
             localStorage.setItem('wishlist', JSON.stringify(wishlist));
-            alert('Added to wishlist!');
+            
         }
     });
 });
