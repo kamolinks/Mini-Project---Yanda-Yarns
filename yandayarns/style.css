@@ -1,3 +1,16 @@
+@media (max-width: 786px) {
+  .footer-logo-text {
+    display: none !important;
+  }
+  .footer-logo-image {
+    display: inline-block !important;
+    width:100px !important;
+    margin-left: 10px;
+  }
+  .footer-about {
+    display: block !important;
+  }
+}
 @media (max-width: 768px) {
   .checkout-section {
     width: 100px !important;
@@ -2215,7 +2228,10 @@ video {
 
 .footer-brand {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
   gap: 1rem;
 }
 

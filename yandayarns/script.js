@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const cartModal = document.getElementById('cartModal');
 
   // Show cart modal on mobile when cart-button-mobile is clicked
-  const cartButtonMobile = document.querySelector('.cart-button-mobile');
+  const cartButtonMobile = document.getElementById('cartIconMobile') || document.querySelector('.cart-button-mobile');
   if (cartButtonMobile && cartModal) {
     cartButtonMobile.addEventListener('click', async function(e) {
       if (window.innerWidth <= 768) {
@@ -398,20 +398,22 @@ document.addEventListener('DOMContentLoaded', function() {
   //open cart when cart icon is clicked
 
   const cartIcon = document.getElementById("cartIcon");
-
   const closeCartBtn = document.getElementById("closeCartBtn");
   console.log(cartIcon);
   console.log(cartModal);
-  cartIcon.addEventListener("click", async () => {
-    cartModal.classList.remove("hidden");
-    cartModal.style.removeProperty('display');
-    await loadCart();
-  });
-
-  closeCartBtn.addEventListener("click", () => {
-    cartModal.classList.add("hidden");
-    cartModal.style.removeProperty('display');
-  });
+  if (cartIcon) {
+    cartIcon.addEventListener("click", async () => {
+      cartModal.classList.remove("hidden");
+      cartModal.style.removeProperty('display');
+      await loadCart();
+    });
+  }
+  if (closeCartBtn) {
+    closeCartBtn.addEventListener("click", () => {
+      cartModal.classList.add("hidden");
+      cartModal.style.removeProperty('display');
+    });
+  }
 
   // Function to load cart items into the cart modal
   async function loadCart() {
